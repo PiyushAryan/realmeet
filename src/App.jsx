@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Editor from './pages/Editor'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import { Toaster } from 'react-hot-toast'
 
 
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <Toaster position='top:right'/>
     </>
 
   )

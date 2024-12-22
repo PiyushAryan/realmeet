@@ -1,6 +1,13 @@
 import React from 'react'
+import { toast } from 'react-hot-toast';
 
 function FormComp() {
+
+    const generateRoomId = () => {
+        const roomId = Math.random().toString(36).substring(2, 7);
+        toast.success('Room Id generated successfully');
+        document.getElementById('room-Id').value = roomId;
+    }
     return (
         <>
             <div className="flex items-center justify-center h-screen bg-blue-100">
@@ -14,9 +21,13 @@ function FormComp() {
                         <label className='font-mono font-medium block text-sm text-blue-700' htmlFor='username'>Username</label>
                         <input placeholder='Enter your Username' type='text' id='username' className='font-mono w-full p-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500' required></input>
                     </div>
-
                     <button type='submit' className='w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 font-mono'>Sign In</button>
+                    <button
+                        className=" w-full text-center cursor-pointer select-none font-mono text-blue-500 hover:text-blue-700" onClick={generateRoomId}>
+                        Generate Unique Room Id
+                    </button>
                 </form>
+               
             </div>
         </>
     )
