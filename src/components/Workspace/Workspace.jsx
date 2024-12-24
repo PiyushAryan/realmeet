@@ -5,7 +5,7 @@ const Workspace = () => {
   return (
     <>
         <div className="flex w-full justify-center items-center h-full">
-            <div className=" w-full h-[100%] bg-blue-200 shadow-md rounded-lg">
+            <div className=" w-full h-[90%] bg-blue-200 shadow-md rounded-lg">
                 <MonacoEditor
                     height="100%"
                     width="100%"
