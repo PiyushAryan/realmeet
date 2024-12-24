@@ -4,12 +4,12 @@ import MonacoEditor from '@monaco-editor/react'
 const Workspace = () => {
   return (
     <>
-        <div className='flex justify-center items-center h-screen'>
-            <div className="p-4 bg-blue-200 shadow-md rounded-lg">
+        <div className="flex w-full justify-center items-center h-full">
+            <div className=" w-full h-[100%] bg-blue-200 shadow-md rounded-lg">
                 <MonacoEditor
-                    height="90vh"
+                    height="100%"
+                    width="100%"
                     defaultLanguage="javascript"
-                    width='100vh'
                     language="cpp"
                     theme="vs-dark"
                     defaultValue="// Start coding here!"
