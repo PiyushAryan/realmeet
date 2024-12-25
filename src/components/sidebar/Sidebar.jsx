@@ -23,7 +23,9 @@ function Sidebar() {
                     ))
                 }
             </div>
+            
         </div>
+        
     </aside>
     )
 }

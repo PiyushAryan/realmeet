@@ -17,6 +17,8 @@ function Editor() {
                 <Workspace />
             </div>
         </Split>
+        <button className="text-gray-200 px-4 py-2 bg-red-500 rounded-md shadow-md fixed bottom-6 left-48 hover:bg-red-100 hover:text-black transition">Leave</button>
+        <button className="text-blue-600 px-4 py-2 bg-white rounded-md shadow-md fixed bottom-6 left-6 hover:bg-blue-100 transition">Copy Room Id</button>
     </div>
     )
 }
