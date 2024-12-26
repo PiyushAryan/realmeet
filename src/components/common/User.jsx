@@ -5,10 +5,10 @@ import Avatar from 'react-avatar'
 function User({ username}) {
     // console.log(username)
     return (
-        <div className='flex space-x-6'>
-        <div className="flex flex-col items-center">
+        <div className='text-center'>
+        <div className="flex gap-4 flex-col items-center">
                 <Avatar name={username} size="50" round={true} />
-                <p className="text-sm font-medium text-gray-700 mt-2">{username}</p>
+                <p className="text-sm font-medium text-gray-700">{username}</p>
         </div>
         </div>
     )
