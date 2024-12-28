@@ -6,20 +6,17 @@ import { Link } from 'react-router'
 
 function Editor() {
   return (
-    <div className="flex h-screen">
-      <Split
-        sizes={[30, 70]}
-        gutterSize={8}
-        minSize={200}
-        className="flex w-full">
-        <div>
-          <Sidebar />
-        </div>
-        <div className='bg-gray-700'>
-          <Workspace />
-        </div>
-      </Split>
-    </div>
+    <>
+      <div className='grid grid-cols-[230px_1fr]'>
+      <aside className='bg-[#1c1e29] p-4 text-white flex flex-col'>
+      <div className='flex-1'>
+        <Sidebar />
+      </div>
+      </aside>
+      </div>
+    </>
+
+
   )
 }
 
