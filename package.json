@@ -15,6 +15,7 @@
     "@uiw/codemirror-theme-aura": "^4.23.7",
     "@uiw/codemirror-theme-darcula": "^4.23.7",
     "@uiw/react-codemirror": "^4.23.7",
+    "nodemon": "^3.1.9",
     "react": "^18.3.1",
     "react-avatar": "^5.0.3",
     "react-dom": "^18.3.1",
