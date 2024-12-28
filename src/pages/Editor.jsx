@@ -7,16 +7,17 @@ import { Link } from 'react-router'
 function Editor() {
   return (
     <>
-      <div className='grid grid-cols-[230px_1fr]'>
-      <aside className='bg-[#1c1e29] p-4 text-white flex flex-col'>
-      <div className='flex-1'>
-        <Sidebar />
-      </div>
-      </aside>
-      </div>
-    </>
-
-
+    <div className="grid grid-cols-[300px_1fr] min-h-screen">
+  <aside className="bg-[rgb(169,147,191)] p-5 text-white flex flex-col h-full border-r-2 border-violet-950">
+    <div className="flex-1">
+      <Sidebar />
+    </div>
+  </aside>
+  <div className="flex-1">
+    <Workspace />
+  </div>
+</div>
+</>
   )
 }
 

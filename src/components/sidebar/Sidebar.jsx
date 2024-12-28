@@ -15,9 +15,9 @@ function Sidebar() {
     ]);
     return (
         <>
-            <p className="text-sm text-gray-600">Active Users</p>
-            <hr className="border-2 border-solid border-blue-700" />
-            <div className="flex gap-5 flex-wrap items-center justify-around mt-4">
+            <p className="text-sm text-violet-950">Active Users</p>
+            <hr className="border-1 border-solid border-blue-700" />
+            <div className="flex gap-4 flex-wrap items-center justify-around mt-4">
                 {users.map((user) => (
                     <User
                         key={user.socketId}
@@ -37,7 +37,16 @@ function Sidebar() {
                     </Link>
                 </button>
                 <button
-                    className="px-4 py-2 bg-white border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-6 hover:bg-indigo-100 transition"
+                    className="px-4 py-2 bg-white border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-28 hover:bg-indigo-100 transition"
+                    aria-label="login">
+                    <img
+                        src="/icons8-home.gif"
+                        className="w-6 h-6"
+                        alt="login"
+                    />
+                </button>
+                <button
+                    className="px-4 py-2 bg-gray-100 border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-6 hover:bg-indigo-100 transition"
                     aria-label="Copy room id">
                     <img
                         src="https://img.icons8.com/ios-glyphs/30/copy.png"
@@ -47,7 +56,6 @@ function Sidebar() {
                 </button>
             </div>
         </>
-
 
     )
 }

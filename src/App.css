@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+.cm-editor {
+    height: 100vh; 
+}
+
+
+.cm-content {
+    min-height: calc(100vh - 20px);
+    display: block; 
+    box-sizing: border-box; 
+}

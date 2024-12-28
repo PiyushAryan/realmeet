@@ -1,8 +1,11 @@
-import ReactCodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
-import { darcula } from '@uiw/codemirror-theme-darcula';
+import ReactCodeMirror from '@uiw/react-codemirror';
+import { basicSetup } from '@uiw/react-codemirror';
 import { cpp } from '@codemirror/lang-cpp';
 import { closeBrackets } from '@codemirror/autocomplete';
+import { aura } from '@uiw/codemirror-theme-aura';
+import { EditorView } from '@uiw/react-codemirror';
+
 
 const Workspace = () => {
   const [code, setCode] = useState('');
@@ -12,24 +15,26 @@ const Workspace = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full">
-      <div className="w-full h-full min-h-[calc(100vh-20px)]">
+    <>
+      <div className="w-full h-screen">
         <ReactCodeMirror
           value={code}
           extensions={[
             cpp(),
             closeBrackets(),
+            basicSetup(),
+            EditorView.contentAttributes.of({
+              spellcheck: 'false',
+              autocorrect: 'off',
+              autocapitalize: 'off',
+            }),
           ]}
-          theme={darcula}
+          theme={aura}
           onChange={handleChange}
-          style={{
-            height: '100%',
-            width: '100%',
-            
-          }}
         />
       </div>
-    </div>
+    </>
+
   );
 };
 
