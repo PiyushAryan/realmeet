@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import { basicSetup } from '@uiw/react-codemirror';
 import { cpp } from '@codemirror/lang-cpp';
@@ -8,6 +8,7 @@ import { EditorView } from '@uiw/react-codemirror';
 
 
 const Workspace = () => {
+  
   const [code, setCode] = useState('');
 
   const handleChange = (value) => {

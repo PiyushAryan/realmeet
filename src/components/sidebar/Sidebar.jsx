@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import User from '../common/User'
 import { Link } from 'react-router';
 
 
 
+
 function Sidebar() {
+    const socketRef = useRef();
+
+    useEffect(() => {
+        const connect = async () => {
+            socketRef.current = await connectSocket();
+        };
+        connect();
+    }, []);
 
     const [users, setUsers] = useState([
 
