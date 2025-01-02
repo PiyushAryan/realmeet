@@ -33,7 +33,7 @@ function Sidebar() {
             });
             socketRef.current.on('joined', ({ users, username, socketId }) => {
 
-                if (socketRef.current.id !== socketId) {
+                if (location.state?.username !== username) {
                 toast.success(`${username} joined the room`);
                 console.log(`${username} joined the room`);  //remove the prod
                 }

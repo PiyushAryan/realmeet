@@ -42,7 +42,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    
+    const rooms = [...socket.rooms];
+    rooms.forEach((roomId) => {
+      socket.in(roomId).emit('left',{
+        socketId: socket.id,
+        username: userSocketMap[socket.id],
+      })
+    })
+    delete userSocketMap[socket.id];
+    socket.leave();
   })
 });
 
