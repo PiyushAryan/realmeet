@@ -41,10 +41,26 @@ function Sidebar() {
                 setUsers(users);
 
             });
-        };
+            socketRef.current.on('left', ({ socketId, username }) => {
+                toast.success(`${username} left the room`);
+                console.log(`${username} left the room`);  //remove the prod
+                setUsers((prevUsers) => {
+                    return prevUsers.filter((users) => users.socketId !== socketId);
+                })
+        });
 
+    };
         connect();
 
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.off('connect_failed');
+                socketRef.current.off('connect_error');
+                socketRef.current.off('joined');
+                socketRef.current.off('left');
+                socketRef.current.disconnect();
+            }
+        };
     }, []);
 
     if (!location.state) {
