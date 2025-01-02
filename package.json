@@ -16,7 +16,6 @@
     "@uiw/codemirror-theme-aura": "^4.23.7",
     "@uiw/codemirror-theme-darcula": "^4.23.7",
     "@uiw/react-codemirror": "^4.23.7",
-    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "react": "^18.3.1",
     "react-avatar": "^5.0.3",
@@ -25,8 +24,7 @@
     "react-router": "^7.1.0",
     "react-split": "^2.0.14",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
-    "uuid": "^11.0.3"
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

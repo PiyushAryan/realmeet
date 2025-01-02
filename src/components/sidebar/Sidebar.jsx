@@ -1,27 +1,61 @@
 import { useState, useRef, useEffect } from 'react'
 import User from '../common/User'
-import { Link } from 'react-router';
-
+import { Link, useLocation, Navigate, useNavigate, useParams } from 'react-router';
+import { connectSocket } from '../../socket';
+import toast from 'react-hot-toast';
 
 
 
 function Sidebar() {
+    const [users, setUsers] = useState([]);
     const socketRef = useRef();
+    const location = useLocation();
+    const reactNavigation = useNavigate();
+    const { roomId } = useParams();
 
     useEffect(() => {
         const connect = async () => {
             socketRef.current = await connectSocket();
+            socketRef.current.on('connect_failed', (err) => handleErrors(err));
+            socketRef.current.on('connect_error', (err) => handleErrors(err));
+
+
+            function handleErrors(e) {
+                console.log('socket error', e);
+                toast.error('An error occurred while connecting to the server');
+                reactNavigation('/');
+
+            }
+
+            socketRef.current.emit('join', {
+                roomId,
+                username: location.state?.username,
+            });
+            socketRef.current.on('joined', ({ users, username, socketId }) => {
+
+                if (socketRef.current.id !== socketId) {
+                toast.success(`${username} joined the room`);
+                console.log(`${username} joined the room`);  //remove the prod
+                }
+
+                setUsers(users);
+
+            });
         };
+
         connect();
+
     }, []);
 
-    const [users, setUsers] = useState([
+    if (!location.state) {
+        return (
+        <Navigate to='/' />
+        );
+    }
 
-        { socketId: 1, username: 'John Doe', isOnline: true },
-        { socketId: 2, username: 'Jane Doe', isOnline: false },
 
 
-    ]);
+
     return (
         <>
             <p className="text-sm text-violet-950">Active Users</p>
