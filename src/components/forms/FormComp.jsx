@@ -86,8 +86,8 @@ function FormComp() {
                         </button>
                     </form>
                 </div>
-                <footer className="bg-blue-100 text-center p-4">
-                    Built with ❤️ by <a href="https://pflix.vercel.app/" className="font-semibold text-blue-500">Piyush Aryan</a>
+                <footer className="bg-blue-500 text-center text-white p-4">
+                    Built with ❤️ by <a href="https://pflix.vercel.app/" className="font-semibold text-blue-900">Piyush Aryan</a>
                 </footer>
             </div>
 

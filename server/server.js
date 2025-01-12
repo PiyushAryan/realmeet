@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
       })
     })
     delete userSocketMap[socket.id];
-    socket.leave(roomId);
+    socket.leave();
   })
 });
 
