@@ -69,9 +69,6 @@ function Sidebar() {
         );
     }
 
-
-
-
     return (
         <>
             <p className="text-sm text-violet-950">Active Users</p>
