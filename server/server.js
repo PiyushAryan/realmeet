@@ -1,8 +1,12 @@
+import { config as configDotenv } from 'dotenv';
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
+import process from 'node:process';
 
 
+
+configDotenv();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -40,6 +44,10 @@ io.on('connection', (socket) => {
       });
     });
   });
+
+// socket.on('code-change', ({roomId, code}) => {
+//   io.to(roomId).emit('code-change', {code});
+// })
 
   socket.on('disconnecting', () => {
     const rooms = [...socket.rooms];
