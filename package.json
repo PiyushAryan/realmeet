@@ -8,8 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server:dev": "nodemon server/server.js",
-    "server:prod": "node server/server.js"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.4",
