@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useSocket } from "../../../Context/SocketContext";
 import User from '../common/User'
 import { Link, useLocation, Navigate, useNavigate, useParams } from 'react-router';
 import { connectSocket } from '../../socket';
@@ -8,7 +9,7 @@ import toast from 'react-hot-toast';
 
 function Sidebar() {
     const [users, setUsers] = useState([]);
-    const socketRef = useRef();
+    const { socketRef } = useSocket();
     const location = useLocation();
     const reactNavigation = useNavigate();
     const { roomId } = useParams();
@@ -92,6 +93,7 @@ function Sidebar() {
                         />
                     </Link>
                 </button>
+                <Link to='/'>
                 <button
                     className="px-4 py-2 bg-white border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-28 hover:bg-indigo-100 transition"
                     aria-label="login">
@@ -101,6 +103,7 @@ function Sidebar() {
                         alt="login"
                     />
                 </button>
+                </Link>
                 <button
                     className="px-4 py-2 bg-gray-100 border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-6 hover:bg-indigo-100 transition"
                     aria-label="Copy room id">

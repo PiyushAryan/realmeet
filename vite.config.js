@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io': {
-        target: 'https://realmeet-eam6.onrender.com',
+        target: 'http://localhost:3000',
         ws: true,
       },
     },

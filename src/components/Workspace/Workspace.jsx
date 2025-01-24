@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
+import { useSocket } from '../../../Context/SocketContext';
 import { cpp } from '@codemirror/lang-cpp';
 import { closeBrackets } from '@codemirror/autocomplete';
 import { basicSetup } from '@uiw/react-codemirror';
@@ -7,7 +8,8 @@ import { aura } from '@uiw/codemirror-theme-aura';
 import { lineNumbers } from '@codemirror/view';
 import { EditorView } from '@codemirror/view';
 
-const Workspace = ({ socketRef, roomId }) => {
+const Workspace = ({roomId}) => {
+  const { socketRef } = useSocket();
   const [code, setCode] = useState('');
   const editorRef = useRef(null);
 
