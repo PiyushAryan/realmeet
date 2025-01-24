@@ -4,7 +4,7 @@ import Split from 'react-split'
 import { Link } from 'react-router'
 
 
-function Editor() {
+function Editor({sockerRef, roomId}) {
   return (
     <>
     <div className="grid grid-cols-[300px_1fr] min-h-screen">

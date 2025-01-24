@@ -45,9 +45,9 @@ io.on('connection', (socket) => {
     });
   });
 
-// socket.on('code-change', ({roomId, code}) => {
-//   io.to(roomId).emit('code-change', {code});
-// })
+socket.on('code-change', ({roomId, code}) => {
+  io.to(roomId).emit('code-change', {code});
+})
 
   socket.on('disconnecting', () => {
     const rooms = [...socket.rooms];
