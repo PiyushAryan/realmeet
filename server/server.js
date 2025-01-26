@@ -33,21 +33,22 @@ io.on('connection', (socket) => {
     userSocketMap[socket.id] = username;
     socket.join(roomId);
 
+
     const users = getUsersInRoom(roomId);
-    console.log(users);  // remove in prod
+    // console.log(users);  // remove in prod
 
     users.forEach(({ socketId }) => {
       io.to(socketId).emit('joined', {
-        socketId: socket.id,
-        username,
         users,
+        username,
+        socketId: socket.id,
       });
     });
   });
 
-// socket.on('code-change', ({roomId, code}) => {
-//   io.to(roomId).emit('code-change', {code});
-// })
+socket.on('code-change', ({roomId, code}) => {
+  io.to(roomId).emit('code-change', { code });
+});
 
   socket.on('disconnecting', () => {
     const rooms = [...socket.rooms];

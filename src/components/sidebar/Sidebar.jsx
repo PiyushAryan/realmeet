@@ -1,21 +1,22 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import User from '../common/User'
-import { Link, useLocation, Navigate, useNavigate, useParams } from 'react-router';
+import { Link, useLocation, Navigate, useNavigate } from 'react-router';
 import { connectSocket } from '../../socket';
 import toast from 'react-hot-toast';
 
 
 
-function Sidebar() {
+function Sidebar({socketRef, roomId}) {
     const [users, setUsers] = useState([]);
-    const socketRef = useRef();
+    // const socketRef = useRef();
     const location = useLocation();
     const reactNavigation = useNavigate();
-    const { roomId } = useParams();
+    // const { roomId } = useParams();
 
     useEffect(() => {
         const connect = async () => {
             socketRef.current = await connectSocket();
+            // console.log('Socket connected:',socketRef.current.id);  //remove in prod
             socketRef.current.on('connect_failed', (err) => handleErrors(err));
             socketRef.current.on('connect_error', (err) => handleErrors(err));
 
@@ -34,8 +35,8 @@ function Sidebar() {
             socketRef.current.on('joined', ({ users, username, socketId }) => {
 
                 if (location.state?.username !== username) {
-                toast.success(`${username} joined the room`);
-                console.log(`${username} joined the room`);  //remove the prod
+                    toast.success(`${username} joined the room`);
+                    // console.log(`${username} joined the room`);  //remove the prod
                 }
 
                 setUsers(users);
@@ -43,13 +44,13 @@ function Sidebar() {
             });
             socketRef.current.on('left', ({ socketId, username }) => {
                 toast.success(`${username} left the room`);
-                console.log(`${username} left the room`);  //remove the prod
+                // console.log(`${username} left the room`);  //remove the prod
                 setUsers((prevUsers) => {
                     return prevUsers.filter((users) => users.socketId !== socketId);
                 })
-        });
+            });
 
-    };
+        };
         connect();
 
         return () => {
@@ -65,7 +66,7 @@ function Sidebar() {
 
     if (!location.state) {
         return (
-        <Navigate to='/' />
+            <Navigate to='/' />
         );
     }
 

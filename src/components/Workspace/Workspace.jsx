@@ -1,58 +1,62 @@
-import { useState, useRef, useEffect } from 'react';
-import ReactCodeMirror from '@uiw/react-codemirror';
-import { cpp } from '@codemirror/lang-cpp';
-import { closeBrackets } from '@codemirror/autocomplete';
-import { basicSetup } from '@uiw/react-codemirror';
-import { aura } from '@uiw/codemirror-theme-aura';
-import { lineNumbers } from '@codemirror/view';
-import { EditorView } from '@codemirror/view';
-
-const Workspace = () => {
-  const [code, setCode] = useState('');
-  const editorRef = useRef(null);
-
-  useEffect(() => {
-    if (editorRef.current) {
-      const editorInstance = editorRef.current.view;
-      console.dir(editorInstance);
-    }
-  }, [editorRef]);
-
-  const handleChange = (value, viewUpdate) => {
-    setCode(value);
-    console.log('changes', viewUpdate?.transactions[0]?.annotations[0]?.value);
-
-    // Emit code change event via WebSocket
-    // if (socketRef?.current) {
-    //   socketRef.current.emit('code-change', { roomId, code: value });
-    // }
-  };
+import { useEffect, useRef } from 'react';
+import Codemirror from 'codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/dracula.css';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/closebrackets';
 
 
-  const extensions = [
-    cpp(),
-    closeBrackets(),
-    basicSetup(),
-    lineNumbers(),
-    EditorView.contentAttributes.of({
-      spellcheck: 'false',
-      autocorrect: 'off',
-      autocapitalize: 'off',
-      autocomplete: 'off',
-    }),
-  ];
 
-  return (
-    <div className="w-full h-screen">
-    <ReactCodeMirror
-      ref={editorRef}
-      value={code}
-      extensions={extensions}
-      theme={aura}
-      onChange={handleChange}
-    />
-  </div>
-  );
+const Workspace = ({socketRef, roomId}) => {
+    const editorRef = useRef(null);
+
+
+    useEffect(() => {
+        async function connect() {
+            editorRef.current = Codemirror.fromTextArea(
+                document.getElementById('realtimeEditor'),
+                {
+                    mode: { name: 'javascript', json: true },
+                    theme: 'dracula',
+                    autoCloseTags: true,
+                    autoCloseBrackets: true,
+                    lineNumbers: true,
+                }
+            );
+
+            
+
+            editorRef.current.on('change', (instance, changes) => {
+                const { origin } = changes;
+                const code = instance.getValue();
+                // console.log('Code emitted:', code, 'Origin:', origin);
+                if (origin !== 'setValue') {
+                    socketRef.current.emit('code-change', {
+                        roomId,
+                        code,
+                    });
+                }
+                // console.log(code);
+            });     
+        }
+        connect();
+    }, []);
+
+    useEffect(() => {
+        // console.log('changing ref');
+
+        if (socketRef.current) {
+            socketRef.current.on('code-change', ({ code }) => {
+                // console.log('receiving', code);
+                if(code !== null){
+                    editorRef.current.setValue(code);
+                }
+            });
+        }  
+    }, [socketRef.current]);
+
+    return <textarea id="realtimeEditor"></textarea>;
 };
 
 export default Workspace;

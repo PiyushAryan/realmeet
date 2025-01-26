@@ -5,13 +5,10 @@
 
 
 
-.cm-editor {
-    height: 100vh; 
-}
 
-
-.cm-content {
-    min-height: calc(100vh - 20px);
-    display: block; 
-    box-sizing: border-box; 
+.CodeMirror {
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 15px;
+    padding-top: 20px;
 }
