@@ -9,5 +9,7 @@ export default defineConfig({
         target: 'https://realmeet-eam6.onrender.com',
         ws: true
   },
+},
+  },
   plugins: [react()],
 })
