@@ -50,11 +50,18 @@ const Workspace = ({socketRef, roomId}) => {
             socketRef.current.on('code-change', ({ code }) => {
                 console.log('receiving', code);
                 if(code !== null){
-                    editorRef.current.setValue(code);
+                    const cursor = editorRef.current.getCursor();
+                    const currentCode = editorRef.current.getValue();
+    
+                    if (currentCode !== code) {
+                        editorRef.current.setValue(code);
+                        
+                        editorRef.current.setCursor(cursor);
+                    }
                 }
             });
         }  
-    }, [socketRef.current, editorRef.current]);
+    }, [socketRef.current]);
 
     return <textarea id="realtimeEditor"></textarea>;
 };
