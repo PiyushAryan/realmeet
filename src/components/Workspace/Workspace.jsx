@@ -47,7 +47,7 @@ const Workspace = ({socketRef, roomId}) => {
 
         if (socketRef.current) {
             socketRef.current.on('code-change', ({ code }) => {
-                console.log('receiving', code);
+                // console.log('receiving', code);
                 if(code !== null){
                     const cursor = editorRef.current.getCursor();
                     const currentCode = editorRef.current.getValue();
