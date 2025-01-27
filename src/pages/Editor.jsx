@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router';
 import Sidebar from '../components/sidebar/Sidebar'
-import Workspace from '../components/workspace/Workspace';
+import Workspace from '../components/workspace/Workspace'
+
 
 
 

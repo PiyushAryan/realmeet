@@ -6,11 +6,8 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 
-
-
-const Workspace = ({socketRef, roomId}) => {
+function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
-
 
     useEffect(() => {
         async function connect() {
@@ -25,36 +22,28 @@ const Workspace = ({socketRef, roomId}) => {
                 }
             );
 
-            
-
             editorRef.current.on('change', (instance, changes) => {
                 const { origin } = changes;
                 const code = instance.getValue();
-                // console.log('Code emitted:', code, 'Origin:', origin);
                 if (origin !== 'setValue') {
                     socketRef.current.emit('code-change', {
                         roomId,
                         code,
                     });
                 }
-                // console.log(code);
             });     
         }
         connect();
     }, []);
 
     useEffect(() => {
-
         if (socketRef.current) {
             socketRef.current.on('code-change', ({ code }) => {
-                // console.log('receiving', code);
-                if(code !== null){
+                if (code !== null) {
                     const cursor = editorRef.current.getCursor();
                     const currentCode = editorRef.current.getValue();
-    
                     if (currentCode !== code) {
                         editorRef.current.setValue(code);
-                        
                         editorRef.current.setCursor(cursor);
                     }
                 }
@@ -63,6 +52,6 @@ const Workspace = ({socketRef, roomId}) => {
     }, [socketRef.current]);
 
     return <textarea id="realtimeEditor"></textarea>;
-};
+}
 
 export default Workspace;
