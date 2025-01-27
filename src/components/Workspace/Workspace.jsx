@@ -44,17 +44,17 @@ const Workspace = ({socketRef, roomId}) => {
     }, []);
 
     useEffect(() => {
-        // console.log('changing ref');
+        console.log('changing ref');
 
         if (socketRef.current) {
             socketRef.current.on('code-change', ({ code }) => {
-                // console.log('receiving', code);
+                console.log('receiving', code);
                 if(code !== null){
                     editorRef.current.setValue(code);
                 }
             });
         }  
-    }, [socketRef.current]);
+    }, [socketRef.current, editorRef.current]);
 
     return <textarea id="realtimeEditor"></textarea>;
 };
