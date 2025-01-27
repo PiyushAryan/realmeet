@@ -44,7 +44,6 @@ const Workspace = ({socketRef, roomId}) => {
     }, []);
 
     useEffect(() => {
-        console.log('changing ref');
 
         if (socketRef.current) {
             socketRef.current.on('code-change', ({ code }) => {
