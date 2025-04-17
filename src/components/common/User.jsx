@@ -10,7 +10,7 @@ function User({ username, isOnline}) {
                 <Avatar name={username} size="50" round={true} />
                 <p className="text-sm font-medium text-gray-700">{username}</p>
                 <div className={`absolute right-0 top-0 h-3 w-3 rounded-full ${
-                isOnline ? "bg-green-500": "bg-red-500"
+                isOnline ? "bg-green-600": "bg-red-600"
                 }`}></div>
         </div>
         </div>

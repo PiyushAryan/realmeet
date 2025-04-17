@@ -1,74 +1,15 @@
-import { useState, useEffect } from 'react'
-import User from '../common/User'
-import { Link, useLocation, Navigate, useNavigate } from 'react-router';
-import { connectSocket } from '../../socket';
-import toast from 'react-hot-toast';
+import { useState } from 'react';
+import User from '../common/User';
+import { Link, useLocation, Navigate } from 'react-router';
 
 
-
-function Sidebar({socketRef, roomId}) {
-    const [users, setUsers] = useState([]);
-    // const socketRef = useRef();
+function Sidebar({ users = [] }) {
     const location = useLocation();
-    const reactNavigation = useNavigate();
-    // const { roomId } = useParams();
-
-    useEffect(() => {
-        const connect = async () => {
-            socketRef.current = await connectSocket();
-            // console.log('Socket connected:',socketRef.current.id);  //remove in prod
-            socketRef.current.on('connect_failed', (err) => handleErrors(err));
-            socketRef.current.on('connect_error', (err) => handleErrors(err));
-
-
-            function handleErrors(e) {
-                console.log('socket error', e);
-                toast.error('An error occurred while connecting to the server');
-                reactNavigation('/');
-
-            }
-
-            socketRef.current.emit('join', {
-                roomId,
-                username: location.state?.username,
-            });
-            socketRef.current.on('joined', ({ users, username, socketId }) => {
-
-                if (location.state?.username !== username) {
-                    toast.success(`${username} joined the room`);
-                    // console.log(`${username} joined the room`);  //remove the prod
-                }
-
-                setUsers(users);
-
-            });
-            socketRef.current.on('left', ({ socketId, username }) => {
-                toast.success(`${username} left the room`);
-                // console.log(`${username} left the room`);  //remove the prod
-                setUsers((prevUsers) => {
-                    return prevUsers.filter((users) => users.socketId !== socketId);
-                })
-            });
-
-        };
-        connect();
-
-        return () => {
-            if (socketRef.current) {
-                socketRef.current.off('connect_failed');
-                socketRef.current.off('connect_error');
-                socketRef.current.off('joined');
-                socketRef.current.off('left');
-                socketRef.current.disconnect();
-            }
-        };
-    }, []);
 
     if (!location.state) {
-        return (
-            <Navigate to='/' />
-        );
+        return <Navigate to='/' />;
     }
+
 
     return (
         <>
@@ -79,9 +20,10 @@ function Sidebar({socketRef, roomId}) {
                     <User
                         key={user.socketId}
                         username={user.username}
-                        isOnline={user.isOnline}
+                        isOnline={true}
                     />
                 ))}
+
                 <button
                     aria-label="leave-button"
                     className="px-4 py-2 bg-red-400 border-2 border-red-700 rounded-md shadow-md fixed bottom-6 left-48 hover:bg-red-100 transition">
@@ -113,8 +55,7 @@ function Sidebar({socketRef, roomId}) {
                 </button>
             </div>
         </>
-
-    )
+    );
 }
 
-export default Sidebar
+export default Sidebar;

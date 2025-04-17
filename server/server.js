@@ -19,7 +19,8 @@ function getUsersInRoom(roomId) {
     []).map(socketId => {
       return {
         socketId,
-        username: userSocketMap[socketId]
+        username: userSocketMap[socketId],
+        isOnline: true
       };
     }
     );
