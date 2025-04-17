@@ -53,7 +53,7 @@ function FormComp() {
                                 id="roomId"
                                 className="w-full p-2 mt-1 font-mono border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 required
-                                ref={roomIdRef} // Attach ref here
+                                ref={roomIdRef} 
                             />
                         </div>
                         <div>
@@ -69,7 +69,7 @@ function FormComp() {
                                 id="username"
                                 className="font-mono w-full p-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 required
-                                ref={usernameRef} // Attach ref here
+                                ref={usernameRef} 
                             />
                         </div>
                         <button

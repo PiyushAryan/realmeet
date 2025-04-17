@@ -3,6 +3,7 @@ import User from '../common/User';
 import { Link, useLocation, Navigate } from 'react-router';
 
 
+// eslint-disable-next-line react/prop-types
 function Sidebar({ users = [] }) {
     const location = useLocation();
 
