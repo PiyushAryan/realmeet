@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Sidebar from '../components/sidebar/Sidebar';
-import Workspace from '../components/workspace/Workspace';
+import Workspace from '../components/Workspace/Workspace';
 import { connectSocket } from '../socket';
 import { useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
