@@ -6,6 +6,8 @@ import 'codemirror/theme/dracula.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
+import { Play } from 'lucide-react';
+import { BeatLoader } from 'react-spinners';
 
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
@@ -67,7 +69,7 @@ function Workspace({ socketRef, roomId }) {
         const encodedCode = btoa(rawCode); // base64 encode  encodeing the code part using btoa
         const stdin = btoa("Judge0");
     
-        setOutput('Compiling...');
+        setOutput(<BeatLoader color="#b946b9" />);
     
         const options = {
             method: 'POST',
@@ -111,7 +113,7 @@ function Workspace({ socketRef, roomId }) {
     return (
         <>
         <div>
-                <button className="bg-violet-500 rounded-sm border border-purple-800 hover:border-white hover:text-white px-3 py-3" onClick={runCode}>Run Code</button>
+                <button className="py-2.5 px-5 me-2 my-2 mx-2 text-sm font-medium text-white focus:outline-none bg-violet-500 rounded-full border border-purple-900 hover:bg-purple-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-purple-100" onClick={runCode}><Play /></button>
                 <code>{output}</code>
             </div>
             <textarea id="realtimeEditor"></textarea>

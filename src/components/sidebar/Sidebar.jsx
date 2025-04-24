@@ -37,7 +37,7 @@ function Sidebar({ users = [] }) {
                     </Link>
                 </button>
                 <button
-                    className="px-4 py-2 bg-white border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-28 hover:bg-indigo-100 transition"
+                    className="px-4 py-2 bg-white border-2 border-indigo-500 rounded-md shadow-md fixed bottom-6 left-28 hover:bg-indigo-90 transition"
                     aria-label="login">
                     <img
                         src="/icons8-home.gif"
