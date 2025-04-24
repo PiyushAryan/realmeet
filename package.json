@@ -16,6 +16,7 @@
     "@uiw/codemirror-theme-aura": "^4.23.7",
     "@uiw/codemirror-theme-darcula": "^4.23.7",
     "@uiw/react-codemirror": "^4.23.7",
+    "axios": "^1.9.0",
     "codemirror": "^5.65.18",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
