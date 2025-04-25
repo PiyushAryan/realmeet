@@ -113,7 +113,7 @@ function Workspace({ socketRef, roomId }) {
     return (
         <>
         <div>
-                <button className="py-2.5 px-5 me-2 my-2 mx-2 text-sm font-medium text-white focus:outline-none bg-violet-500 rounded-full border border-purple-900 hover:bg-purple-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-purple-100" onClick={runCode}><Play /></button>
+                <button className="py-2 px-5 me-2 my-2 mx-2 shadow-lg shadow-violet-400 text-sm font-medium text-white focus:outline-none bg-violet-500 rounded-full border border-purple-900 hover:bg-purple-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-purple-100" onClick={runCode}><Play /></button>
                 <code>{output}</code>
             </div>
             <textarea id="realtimeEditor"></textarea>
