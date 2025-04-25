@@ -10,9 +10,9 @@ function User({ username, isOnline }) {
                     <div className="border-2 border-purple-600 dark:border-purple-300 rounded-full relative">
                         <Avatar name={username} size="50" round={true} />
                         <div
-                            className={`absolute right-0 top-0 h-3 w-3 border-2 rounded-full ${isOnline
-                                    ? "bg-green-500 border-purple-100 dark:border-purple-400"
-                                    : "bg-red-500 border-purple-100 dark:border-purple-400"
+                            className={`absolute right-0 top-0 h-3 w-3 border rounded-full ${isOnline
+                                    ? "bg-green-600 border-purple-100 dark:border-purple-500"
+                                    : "bg-red-600 border-purple-100 dark:border-purple-500"
                                 }`}
                         ></div>
                     </div>

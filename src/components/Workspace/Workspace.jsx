@@ -6,7 +6,7 @@ import 'codemirror/theme/dracula.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
-import { Play } from 'lucide-react';
+import { Play, RotateCcw } from 'lucide-react';
 import { BeatLoader } from 'react-spinners';
 
 function Workspace({ socketRef, roomId }) {
@@ -68,15 +68,15 @@ function Workspace({ socketRef, roomId }) {
         const rawCode = editorRef.current.getValue();
         const encodedCode = btoa(rawCode); // base64 encode  encodeing the code part using btoa
         const stdin = btoa("Judge0");
-    
+
         setOutput(<BeatLoader color="#b946b9" />);
-    
+
         const options = {
             method: 'POST',
             url: 'https://judge0-ce.p.rapidapi.com/submissions',
             params: {
                 base64_encoded: 'true',
-                wait: 'true',  
+                wait: 'true',
                 fields: '*'
             },
             headers: {
@@ -90,34 +90,42 @@ function Workspace({ socketRef, roomId }) {
                 stdin
             }
         };
-    
+
         try {
             const response = await axios.request(options);
             const { stdout, stderr, compile_output, message } = response.data;
-    
+
             const finalOutput =
                 stdout ? atob(stdout) :   //decoding the output part using atob
-                stderr ? atob(stderr) :
-                compile_output ? atob(compile_output) :
-                message ? atob(message) :
-                "No output";
-    
+                    stderr ? atob(stderr) :
+                        compile_output ? atob(compile_output) :
+                            message ? atob(message) :
+                                "No output";
+
             setOutput(finalOutput);
         } catch (error) {
             console.error("Error executing code:", error.message);
             setOutput("Execution failed.");
         }
     };
-    
+
 
     return (
         <>
-        <div>
-                <button className="py-2 px-5 me-2 my-2 mx-2 shadow-lg shadow-violet-400 text-sm font-medium text-white focus:outline-none bg-violet-500 rounded-full border border-purple-900 hover:bg-purple-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-purple-100" onClick={runCode}><Play /></button>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-200">
+                <button
+                    className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-violet-500 border border-purple-900 rounded-full shadow-lg shadow-violet-400 hover:bg-purple-100 hover:text-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-100 transition"
+                    onClick={runCode}><Play /></button>
+                    <button
+                    className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-violet-500 border border-purple-900 rounded-full shadow-lg shadow-violet-400 hover:bg-purple-100 hover:text-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-100 transition"
+                    onClick={() =>
+                        editorRef.current.setValue("// realmeet - realtime coding platform")
+                    }><RotateCcw /></button>
                 <code>{output}</code>
+                
             </div>
             <textarea id="realtimeEditor"></textarea>
-            
+
         </>
 
     );
