@@ -63,6 +63,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F7A2CE571F4C4609A2C1627C9A4A89B1 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FFEEDE47E37642E4B3EF0357D7CF7692 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B4DEDFB754E14F37ACB8613379F90E75 }}
+<<<<<<< HEAD
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -71,4 +72,14 @@ jobs:
           app-name: 'realmeet'
           slot-name: 'Production'
           package: .
+=======
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'realmeet'
+          slot-name: 'Production'
+          package: .
+>>>>>>> b586eff (Add or update the Azure App Service build and deployment workflow config)
           
