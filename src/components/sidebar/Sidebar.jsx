@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../Context/ThemeContext';
 import User from '../common/User';
 import { Link, useLocation, Navigate } from 'react-router';
 
 
+
+
 // eslint-disable-next-line react/prop-types
 function Sidebar({ users = [] }) {
+    const { darkMode, setDarkMode } = useContext(ThemeContext);
     const location = useLocation();
 
     if (!location.state) {
@@ -19,6 +23,9 @@ function Sidebar({ users = [] }) {
                 <hr className="border-t border-blue-700 dark:border-purple-400 my-2" />
 
                 <div className="flex gap-4 flex-wrap items-center justify-around mt-4">
+                    {users.length === 0 && (
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
+                    )}
                     {users.map((user) => (
                         <User
                             key={user.socketId}
@@ -39,6 +46,7 @@ function Sidebar({ users = [] }) {
                             />
                         </Link>
                     </button>
+                    
                     <button
                         className="px-4 py-2 bg-purple-400 dark:bg-gray-800 border-2 border-purple-200 dark:border-purple-400 rounded-md shadow-md fixed bottom-6 left-28 hover:bg-indigo-100 dark:hover:bg-gray-700 transition"
                         aria-label="login"
@@ -49,6 +57,7 @@ function Sidebar({ users = [] }) {
                             alt="home"
                         />
                     </button>
+                    
                     <button
                         className="px-4 py-2 bg-purple-400 dark:bg-gray-700 border-2 border-purple-200 dark:border-purple-400 rounded-md shadow-md fixed bottom-6 left-6 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                         aria-label="Copy room id"
@@ -59,6 +68,8 @@ function Sidebar({ users = [] }) {
                             className=" filter invert w-6 h-6"
                         />
                     </button>
+
+                
                 </div>
             </div>
 

@@ -1,36 +1,37 @@
-import { useState, useEffect, useRef } from 'react';
-import Codemirror from 'codemirror';
-import axios from 'axios';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/dracula.css';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/closebrackets';
-import { Play, RotateCcw } from 'lucide-react';
-import { BeatLoader } from 'react-spinners';
+import { useState, useEffect, useRef } from "react";
+import Codemirror from "codemirror";
+import axios from "axios";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/dracula.css";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/clike/clike";
+import "codemirror/addon/edit/closetag";
+import "codemirror/addon/edit/closebrackets";
+import { Play, RotateCcw } from "lucide-react";
+import { BounceLoader } from "react-spinners";
 
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
-    const [output, setOutput] = useState('');
+    const [output, setOutput] = useState("");
 
     useEffect(() => {
         async function connect() {
             editorRef.current = Codemirror.fromTextArea(
-                document.getElementById('realtimeEditor'),
+                document.getElementById("realtimeEditor"),
                 {
-                    mode: { name: 'javascript', json: true },
-                    theme: 'dracula',
+                    mode: { name: "clike", json: true },
+                    theme: "dracula",
                     autoCloseTags: true,
                     autoCloseBrackets: true,
                     lineNumbers: true,
                 }
             );
 
-            editorRef.current.on('change', (instance, changes) => {
+            editorRef.current.on("change", (instance, changes) => {
                 const { origin } = changes;
                 const code = instance.getValue();
-                if (origin !== 'setValue') {
-                    socketRef.current.emit('code-change', {
+                if (origin !== "setValue") {
+                    socketRef.current.emit("code-change", {
                         roomId,
                         code,
                     });
@@ -55,11 +56,11 @@ function Workspace({ socketRef, roomId }) {
             }
         };
 
-        socketRef.current.on('code-change', handleCodeChange);
+        socketRef.current.on("code-change", handleCodeChange);
 
         return () => {
             if (socketRef.current) {
-                socketRef.current.off('code-change', handleCodeChange);
+                socketRef.current.off("code-change", handleCodeChange);
             }
         };
     }, [socketRef, roomId]);
@@ -69,38 +70,41 @@ function Workspace({ socketRef, roomId }) {
         const encodedCode = btoa(rawCode); // base64 encode  encodeing the code part using btoa
         const stdin = btoa("Judge0");
 
-        setOutput(<BeatLoader color="#b946b9" />);
+        setOutput(<BounceLoader color="#d39ddf"/>);
 
         const options = {
-            method: 'POST',
-            url: 'https://judge0-ce.p.rapidapi.com/submissions',
+            method: "POST",
+            url: "https://judge0-ce.p.rapidapi.com/submissions",
             params: {
-                base64_encoded: 'true',
-                wait: 'true',
-                fields: '*'
+                base64_encoded: "true",
+                wait: "true",
+                fields: "*",
             },
             headers: {
-                'x-rapidapi-key': '739bd76508msh59d87ad81cefe3dp1c1d57jsnaead8c2097b7',
-                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com',
-                'Content-Type': 'application/json'
+                "x-rapidapi-key": "739bd76508msh59d87ad81cefe3dp1c1d57jsnaead8c2097b7",
+                "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+                "Content-Type": "application/json",
             },
             data: {
-                language_id: 93,      // JS lang code
+                language_id: 54, // C++ lang code
                 source_code: encodedCode,
-                stdin
-            }
+                stdin,
+            },
         };
 
         try {
             const response = await axios.request(options);
             const { stdout, stderr, compile_output, message } = response.data;
 
-            const finalOutput =
-                stdout ? atob(stdout) :   //decoding the output part using atob
-                    stderr ? atob(stderr) :
-                        compile_output ? atob(compile_output) :
-                            message ? atob(message) :
-                                "No output";
+            const finalOutput = stdout
+                ? atob(stdout) //decoding the output part using atob
+                : stderr
+                    ? atob(stderr)
+                    : compile_output
+                        ? atob(compile_output)
+                        : message
+                            ? atob(message)
+                            : "No output";
 
             setOutput(finalOutput);
         } catch (error) {
@@ -109,27 +113,52 @@ function Workspace({ socketRef, roomId }) {
         }
     };
 
-
     return (
         <>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 p-4 bg-white rounded-xl shadow-md border border-gray-200">
+            <div
+                className="flex flex-col md:flex-row items-start md:items-center gap-2 p-2 
+                bg-violet-100 dark:bg-purple-950
+                shadow-md border border-violet-300 
+                dark:border-violet-800 transition-colors"
+            >
                 <button
-                    className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-violet-500 border border-purple-900 rounded-full shadow-lg shadow-violet-400 hover:bg-purple-100 hover:text-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-100 transition"
-                    onClick={runCode}><Play /></button>
-                    <button
-                    className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-violet-500 border border-purple-900 rounded-full shadow-lg shadow-violet-400 hover:bg-purple-100 hover:text-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-100 transition"
+                    className="flex items-center justify-center py-1 px-5 text-sm font-medium text-white bg-violet-600 
+                dark:bg-violet-700 border border-violet-800 
+                rounded-full shadow-lg shadow-violet-300 
+                dark:shadow-purple-900 hover:bg-violet-700 
+                hover:text-white focus:outline-none focus:ring-4 
+                focus:ring-violet-200 dark:focus:ring-violet-500 transition"
+                    onClick={runCode}
+                >
+                    <Play className="mr-1" />
+                </button>
+                <button
+                    className="flex items-center justify-center py-1 px-5 text-sm font-medium text-white bg-violet-600 
+                dark:bg-violet-700 border border-violet-800 
+                rounded-full shadow-lg shadow-violet-300 
+                dark:shadow-purple-900 hover:bg-violet-700 
+                hover:text-white focus:outline-none focus:ring-4 
+                focus:ring-violet-200 dark:focus:ring-violet-500 transition"
                     onClick={() =>
                         editorRef.current.setValue("// realmeet - realtime coding platform")
-                    }><RotateCcw /></button>
-                <code>{output}</code>
-                
+                    }
+                >
+                    <RotateCcw className="mr-1" />
+                </button>
+                <code className="dark:text-white">{output}</code>
+                <div className="flex-1"></div>
+                <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-500 dark:text-white">
+                        Room ID:
+                    </span>
+                    <span className="font-semibold text-sm text-gray-800 dark:text-violet-200">
+                        {roomId}
+                    </span>
+                </div>
             </div>
             <textarea id="realtimeEditor"></textarea>
-
         </>
-
     );
-
 }
 
 export default Workspace;
