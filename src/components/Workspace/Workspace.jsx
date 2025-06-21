@@ -7,7 +7,7 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/clike/clike";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
-import { Play, RotateCcw } from "lucide-react";
+import { Play, Eraser } from "lucide-react";
 
 
 function Workspace({ socketRef, roomId }) {
@@ -129,7 +129,7 @@ const runCode = async () => {
         )}
 
         <div className="pt-2 border-t border-zinc-700 text-zinc-400">
-          <span>⏱ <strong>Time:</strong> {time || "N/A"}s</span><br />
+          <span className="text-green-500">⏱ <strong>Finished in</strong> {time || "N/A"}s</span><br />
           <span>📦 <strong>Memory:</strong> {memory || "N/A"} KB</span>
         </div>
       </div>
@@ -139,7 +139,7 @@ const runCode = async () => {
   } catch (error) {
     console.error("Error running code:", error.message);
     setOutput(
-      <div className="text-red-200 p-4">
+      <div className="dark:text-red-200 p-4 text-red-800">
         <p> Error running code: {error.message}</p>
       </div>
     );
@@ -176,7 +176,7 @@ const runCode = async () => {
                         editorRef.current.setValue("// realmeet - realtime coding platform")
                     }
                 >
-                    <RotateCcw className="mr-1" />
+                    <Eraser className="mr-1" />
                 </button>
                 <code className="dark:text-white">{output}</code>
                 <div className="flex-1"></div>
@@ -191,7 +191,6 @@ const runCode = async () => {
             </div>
             <textarea id="realtimeEditor"></textarea>
 
-  
         </>
     );
 }
