@@ -8,7 +8,7 @@ import "codemirror/mode/clike/clike";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
 import { Play, RotateCcw } from "lucide-react";
-import { BounceLoader } from "react-spinners";
+
 
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
@@ -65,53 +65,86 @@ function Workspace({ socketRef, roomId }) {
         };
     }, [socketRef, roomId]);
 
-    const runCode = async () => {
-        const rawCode = editorRef.current.getValue();
-        const encodedCode = btoa(rawCode); // base64 encode  encodeing the code part using btoa
-        const stdin = btoa("Judge0");
+const runCode = async () => {
+  const rawCode = editorRef.current.getValue();
+  const encodedCode = btoa(rawCode); // base64 encode
+  const stdin = btoa("Judge0");
 
-        setOutput(<BounceLoader color="#d39ddf"/>);
+  setOutput(
+    <div className="text-sky-400">Running Code...</div>
+  );
 
-        const options = {
-            method: "POST",
-            url: "https://judge0-ce.p.rapidapi.com/submissions",
-            params: {
-                base64_encoded: "true",
-                wait: "true",
-                fields: "*",
-            },
-            headers: {
-                "x-rapidapi-key": "739bd76508msh59d87ad81cefe3dp1c1d57jsnaead8c2097b7",
-                "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-                "Content-Type": "application/json",
-            },
-            data: {
-                language_id: 54, // C++ lang code
-                source_code: encodedCode,
-                stdin,
-            },
-        };
+  const options = {
+    method: "POST",
+    url: "https://judge0-ce.p.rapidapi.com/submissions",
+    params: {
+      base64_encoded: "true",
+      wait: "true",
+      fields: "*",
+    },
+    headers: {
+      "x-rapidapi-key": "739bd76508msh59d87ad81cefe3dp1c1d57jsnaead8c2097b7",
+      "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+      "Content-Type": "application/json",
+    },
+    data: {
+      language_id: 54,
+      source_code: encodedCode,
+      stdin,
+    },
+  };
 
-        try {
-            const response = await axios.request(options);
-            const { stdout, stderr, compile_output, message } = response.data;
+  try {
+    const response = await axios.request(options);
+    const { stdout, stderr, compile_output, message, time, memory } = response.data;
 
-            const finalOutput = stdout
-                ? atob(stdout) //decoding the output part using atob
-                : stderr
-                    ? atob(stderr)
-                    : compile_output
-                        ? atob(compile_output)
-                        : message
-                            ? atob(message)
-                            : "No output";
+    const finalOutput = (
+      <div className="text-white p-4 rounded-lg space-y-3 font-mono text-sm leading-relaxed">
+        {stdout && (
+          <div>
+            <span className="text-green-400 font-semibold">✔ Output:</span>
+            <pre className="text-white whitespace-pre-wrap mt-1">{atob(stdout)}</pre>
+          </div>
+        )}
 
-            setOutput(finalOutput);
-        } catch (error) {
-            console.error("Error executing code:", error.message);
-            setOutput("Execution failed.");
-        }
-    };
+        {stderr && (
+          <div>
+            <span className="text-red-400 font-semibold">🚫 Error:</span>
+            <pre className="text-red-300 whitespace-pre-wrap mt-1">{atob(stderr)}</pre>
+          </div>
+        )}
+
+        {compile_output && (
+          <div>
+            <span className="text-yellow-400 font-semibold">🔧 Compilation Error:</span>
+            <pre className="text-yellow-200 whitespace-pre-wrap mt-1">{atob(compile_output)}</pre>
+          </div>
+        )}
+
+        {message && (
+          <div>
+            <span className="text-blue-400 font-semibold">💬 Message:</span>
+            <pre className="text-blue-200 whitespace-pre-wrap mt-1">{atob(message)}</pre>
+          </div>
+        )}
+
+        <div className="pt-2 border-t border-zinc-700 text-zinc-400">
+          <span>⏱ <strong>Time:</strong> {time || "N/A"}s</span><br />
+          <span>📦 <strong>Memory:</strong> {memory || "N/A"} KB</span>
+        </div>
+      </div>
+    );
+
+    setOutput(finalOutput);
+  } catch (error) {
+    console.error("Error running code:", error.message);
+    setOutput(
+      <div className="text-red-200 p-4">
+        <p> Error running code: {error.message}</p>
+      </div>
+    );
+  }
+};
 
     return (
         <>
@@ -157,6 +190,8 @@ function Workspace({ socketRef, roomId }) {
                 </div>
             </div>
             <textarea id="realtimeEditor"></textarea>
+
+  
         </>
     );
 }
