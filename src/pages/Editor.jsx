@@ -66,23 +66,19 @@ function Editor() {
   }, [roomId, location.state, navigate]);
 
   return (
-    <>
-      <div className="grid grid-cols-[300px_1fr] min-h-screen">
-        <aside className="bg-[rgb(169,147,191)] p-5 text-white flex flex-col h-full border-r-2 border-violet-300 dark:border-violet-900">
-          <div className="flex-1">
-            <Sidebar 
-              socketRef={socketRef} 
-              roomId={roomId} 
-              socketConnected={socketConnected} 
-              users={users} // Pass users data from parent
-            />
-          </div>
-        </aside>
-        <div>
-          {socketConnected && <Workspace socketRef={socketRef} roomId={roomId} />}
-        </div>
-      </div>
-    </>
+    <div className="flex h-screen bg-background overflow-hidden">
+      <aside className="w-80 border-r border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <Sidebar 
+          socketRef={socketRef} 
+          roomId={roomId} 
+          socketConnected={socketConnected} 
+          users={users}
+        />
+      </aside>
+      <main className="flex-1 flex flex-col min-w-0">
+        {socketConnected && <Workspace socketRef={socketRef} roomId={roomId} />}
+      </main>
+    </div>
   );
 }
 

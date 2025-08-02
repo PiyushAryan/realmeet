@@ -7,9 +7,9 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/clike/clike";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
-import { Play, Eraser } from "lucide-react";
 
 
+// eslint-disable-next-line react/prop-types
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
     const [output, setOutput] = useState("");
@@ -39,7 +39,7 @@ function Workspace({ socketRef, roomId }) {
             });
         }
         connect();
-    }, [roomId]);
+    }, [roomId, socketRef]);
 
     useEffect(() => {
         if (!socketRef.current || !editorRef.current) return;
@@ -147,51 +147,88 @@ const runCode = async () => {
 };
 
     return (
-        <>
-            <div
-                className="flex flex-col md:flex-row items-start md:items-center gap-2 p-2 
-                bg-violet-100 dark:bg-purple-950
-                shadow-md border border-violet-300 
-                dark:border-violet-800 transition-colors"
-            >
-                <button
-                    className="flex items-center justify-center py-1 px-5 text-sm font-medium text-white bg-violet-600 
-                dark:bg-violet-700 border border-violet-800 
-                rounded-full shadow-lg shadow-violet-300 
-                dark:shadow-purple-900 hover:bg-violet-700 
-                hover:text-white focus:outline-none focus:ring-4 
-                focus:ring-violet-200 dark:focus:ring-violet-500 transition"
-                    onClick={runCode}
-                >
-                    <Play className="mr-1" />
-                </button>
-                <button
-                    className="flex items-center justify-center py-1 px-5 text-sm font-medium text-white bg-violet-600 
-                dark:bg-violet-700 border border-violet-800 
-                rounded-full shadow-lg shadow-violet-300 
-                dark:shadow-purple-900 hover:bg-violet-700 
-                hover:text-white focus:outline-none focus:ring-4 
-                focus:ring-violet-200 dark:focus:ring-violet-500 transition"
-                    onClick={() =>
-                        editorRef.current.setValue("// realmeet - realtime coding platform")
-                    }
-                >
-                    <Eraser className="mr-1" />
-                </button>
-                <code className="dark:text-white">{output}</code>
-                <div className="flex-1"></div>
-                <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-500 dark:text-white">
-                        Room ID:
-                    </span>
-                    <span className="font-semibold text-sm text-gray-800 dark:text-violet-200">
-                        {roomId}
-                    </span>
+        <div className="flex h-full flex-col bg-background">
+            <div className="flex items-center justify-between border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4">
+                <div className="flex items-center gap-3">
+                    <button
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 border border-gray-800 shadow-sm h-9 px-4"
+                        onClick={runCode}
+                    >
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
+                        Run
+                    </button>
+                    <button
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black hover:bg-gray-50 border border-gray-200 shadow-sm h-9 px-4"
+                        onClick={() =>
+                            editorRef.current.setValue("// realmeet - realtime coding platform")
+                        }
+                    >
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 6h18"/>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                            <line x1="10" x2="10" y1="11" y2="17"/>
+                            <line x1="14" x2="14" y1="11" y2="17"/>
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-sm text-muted-foreground">Live Session</span>
+                    </div>
+                    <div className="h-4 w-px bg-border"></div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">Room:</span>
+                        <code className="relative rounded-md bg-muted px-2 py-1 font-mono text-sm font-medium text-foreground">
+                            {roomId}
+                        </code>
+                        <button
+                            className="group relative inline-flex items-center justify-center w-8 h-8 rounded-lg bg-muted/50 hover:bg-muted border border-border/50 hover:border-border transition-all duration-200 shadow-sm hover:shadow-md"
+                            aria-label="Room settings"
+                            title="Room settings"
+                        >
+                            <svg className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                                <path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <textarea id="realtimeEditor"></textarea>
 
-        </>
+            {output && (
+                <div className="border-b bg-muted/20 p-6">
+                    <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
+                        <div className="flex items-center gap-2 bg-muted/50 px-4 py-3 border-b">
+                            <div className="flex gap-1.5">
+                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span className="text-sm font-medium text-muted-foreground ml-2">Output</span>
+                        </div>
+                        <div className="p-4">
+                            <div className="max-h-48 overflow-y-auto font-mono text-sm">
+                                {output}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="flex-1 relative">
+                <textarea 
+                    id="realtimeEditor" 
+                    className="h-full w-full resize-none border-0 bg-background p-6 text-sm font-mono outline-none placeholder:text-muted-foreground"
+                    placeholder="// Start coding here..."
+                />
+            </div>
+        </div>
     );
 }
 
