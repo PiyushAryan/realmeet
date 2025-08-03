@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react';
 import { ThemeContext } from '../../../Context/ThemeContext';
+import { Monitor, Sun, Moon  } from 'lucide-react';
 
 function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme, setTheme } = useContext(ThemeContext);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -15,11 +16,11 @@ function Navbar() {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo and Brand */}
                     <div className="flex items-center space-x-3">
-                        <div className="flex-shrink-0">
+                        <div className="p-1 bg-black dark:bg-white rounded-lg">
                             <img 
                                 src="/favicon.svg" 
                                 alt="realmeet logo" 
-                                className="h-8 w-8 rounded-lg"
+                                className="h-8 w-8 rounded-lg invert dark:invert-0"
                             />
                         </div>
                         <div className="flex flex-col">
@@ -63,23 +64,46 @@ function Navbar() {
                     </div>
 
                     {/* Right Side Actions */}
-                    <div className="hidden md:flex items-center space-x-4">
+                    <div className="hidden md:flex items-center space-x-3">
                         {/* Theme Toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
-                            aria-label="Toggle theme"
-                        >
-                            {theme === 'dark' ? (
-                                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                                </svg>
-                            ) : (
-                                <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                                </svg>
-                            )}
-                        </button>
+                        <div className="relative flex items-center bg-gray-50 dark:bg-gray-800/50 rounded-lg p-0.5 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm">
+                            <button
+                                onClick={() => setTheme('light')}
+                                className={`relative p-1.5 rounded-md transition-all duration-200 ${
+                                    theme === 'light' 
+                                        ? 'bg-white dark:bg-gray-700 shadow-sm text-amber-500 dark:text-amber-400' 
+                                        : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                                }`}
+                                aria-label="Light theme"
+                                title="Light theme"
+                            >
+                                <Sun size={14} className="transition-colors duration-200" />
+                            </button>
+                            <button
+                                onClick={() => setTheme('dark')}
+                                className={`relative p-1.5 rounded-md transition-all duration-200 ${
+                                    theme === 'dark' 
+                                        ? 'bg-gray-800 dark:bg-gray-600 shadow-sm text-blue-400 dark:text-blue-300' 
+                                        : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                                }`}
+                                aria-label="Dark theme"
+                                title="Dark theme"
+                            >
+                                <Moon size={14} className="transition-colors duration-200" />
+                            </button>
+                            <button
+                                onClick={() => setTheme('system')}
+                                className={`relative p-1.5 rounded-md transition-all duration-200 ${
+                                    theme === 'system' 
+                                        ? 'bg-white dark:bg-gray-700 shadow-sm text-emerald-500 dark:text-emerald-400' 
+                                        : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                                }`}
+                                aria-label="System theme"
+                                title="System theme"
+                            >
+                                <Monitor size={14} className="transition-colors duration-200" />
+                            </button>
+                        </div>
 
                         {/* GitHub Link */}
                         <a
@@ -157,26 +181,41 @@ function Navbar() {
                         {/* Mobile Actions */}
                         <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
                             <div className="flex items-center justify-between px-3">
-                                <button
-                                    onClick={toggleTheme}
-                                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                                >
-                                    {theme === 'dark' ? (
-                                        <>
-                                            <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                                            </svg>
-                                            <span className="text-sm">Light Mode</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                                            </svg>
-                                            <span className="text-sm">Dark Mode</span>
-                                        </>
-                                    )}
-                                </button>
+                                <div className="flex items-center space-x-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg p-0.5">
+                                    <button
+                                        onClick={() => setTheme('light')}
+                                        className={`p-2 rounded-md transition-all duration-200 ${
+                                            theme === 'light' 
+                                                ? 'bg-white dark:bg-gray-700 shadow-sm text-amber-500' 
+                                                : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                                        }`}
+                                        aria-label="Light theme"
+                                    >
+                                        <Sun size={16} />
+                                    </button>
+                                    <button
+                                        onClick={() => setTheme('dark')}
+                                        className={`p-2 rounded-md transition-all duration-200 ${
+                                            theme === 'dark' 
+                                                ? 'bg-gray-800 dark:bg-gray-600 shadow-sm text-blue-400' 
+                                                : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                                        }`}
+                                        aria-label="Dark theme"
+                                    >
+                                        <Moon size={16} />
+                                    </button>
+                                    <button
+                                        onClick={() => setTheme('system')}
+                                        className={`p-2 rounded-md transition-all duration-200 ${
+                                            theme === 'system' 
+                                                ? 'bg-white dark:bg-gray-700 shadow-sm text-emerald-500' 
+                                                : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                                        }`}
+                                        aria-label="System theme"
+                                    >
+                                        <Monitor size={16} />
+                                    </button>
+                                </div>
                                 
                                 <a
                                     href="https://github.com/PiyushAryan/realmeet"
