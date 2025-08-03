@@ -5,7 +5,7 @@ import Workspace from '../components/Workspace/Workspace';
 import { connectSocket } from '../socket';
 import { useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
-import Navbar from '../components/common/Navbar';
+
 
 function Editor() {
   const socketRef = useRef(null);

@@ -276,7 +276,7 @@ const runCode = async () => {
                             <span className="text-sm font-medium text-muted-foreground ml-2">Output</span>
                         </div>
                         <div className="p-4">
-                            <div className="max-h-48 overflow-y-auto font-mono text-sm">
+                            <div className="font-mono text-sm">
                                 {output}
                             </div>
                         </div>

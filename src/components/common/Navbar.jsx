@@ -98,7 +98,7 @@ function Navbar() {
                         <button className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200">
                             Sign In
                         </button>
-                        <button className="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
+                        <button className="px-4 py-2 bg-gradient-to-r bg-black hover:from-orange-600 hover:to-amber-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
                             Get Started
                         </button>
                     </div>

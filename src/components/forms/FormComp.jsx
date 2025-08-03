@@ -49,14 +49,14 @@ function FormComp() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+        <div className="flex-grow bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10"></div>
             
             {/* Main Container */}
             <div className="relative w-full max-w-md">
                 {/* Card */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden backdrop-blur-md bg-white/95 dark:bg-gray-800/95">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 backdrop-blur-md bg-white/95 dark:bg-gray-800/95">
                     {/* Header */}
                     <div className="px-8 pt-8 pb-6 text-center border-b border-gray-100 dark:border-gray-700">
                         <div className="flex items-center justify-center mb-4">
@@ -66,7 +66,7 @@ function FormComp() {
                                 </svg>
                             </div>
                         </div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                        <h1 className="text-2xl font-bold text-black dark:text-white mb-2">
                             Welcome to realmeet
                         </h1>
                         <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -80,7 +80,7 @@ function FormComp() {
                         <div className="space-y-2">
                             <label
                                 htmlFor="roomId"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                className="block text-sm font-medium text-black dark:text-gray-300"
                             >
                                 Room ID
                             </label>
@@ -105,7 +105,7 @@ function FormComp() {
                         <div className="space-y-2">
                             <label
                                 htmlFor="username"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                className="block text-sm font-medium text-black dark:text-gray-300"
                             >
                                 Username
                             </label>
@@ -130,7 +130,7 @@ function FormComp() {
                         <div className="space-y-3">
                             <button
                                 type="submit"
-                                className="w-full bg-gray-900 dark:bg-gray-100 hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-gray-900 font-medium py-3 px-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                                className="w-full bg-black dark:bg-gray-100 hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-gray-900 font-medium py-3 px-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                             >
                                 Join Session
                             </button>
@@ -149,7 +149,7 @@ function FormComp() {
                             <button
                                 type="button"
                                 onClick={generateRoomId}
-                                className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-xl transition-all duration-200 border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                                className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-black dark:text-gray-300 font-medium py-3 px-4 rounded-xl transition-all duration-200 border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                             >
                                 <div className="flex items-center justify-center space-x-2">
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

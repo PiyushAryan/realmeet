@@ -4,11 +4,11 @@ import Navbar from '../components/common/Navbar'
 
 const Login = () => {
     return (
-        <>
-        <Navbar />
+        <div className="h-screen flex flex-col">
+            <Navbar />
             <FormComp />
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default Login
