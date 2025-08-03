@@ -18,7 +18,7 @@ function Navbar() {
                         <div className="flex-shrink-0">
                             <img 
                                 src="/favicon.svg" 
-                                alt="RealMeet Logo" 
+                                alt="realmeet logo" 
                                 className="h-8 w-8 rounded-lg"
                             />
                         </div>

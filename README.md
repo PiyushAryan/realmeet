@@ -1,4 +1,4 @@
-# ![RealMeet Logo](./public/logo_64x64.ico) RealMeet
+# ![realmeet Logo](./public/favicon.svg) realmeet
 
 <div align="center">
 
@@ -20,7 +20,7 @@
 
 ## 💼 Product Overview
 
-**RealMeet** is a professional-grade, real-time collaborative coding platform designed for modern technical recruitment and development workflows. Built with enterprise reliability and user experience at its core, RealMeet transforms traditional coding interviews into seamless, collaborative experiences.
+**realmeet** is a professional-grade, real-time collaborative coding platform designed for modern technical recruitment and development workflows. Built with enterprise reliability and user experience at its core, realmeet transforms traditional coding interviews into seamless, collaborative experiences.
 
 ### 🎯 **Target Use Cases**
 
@@ -223,7 +223,7 @@ npm start
 
 ## 🤝 Contributing
 
-We welcome contributions from the developer community! RealMeet is built by developers, for developers.
+We welcome contributions from the developer community! realmeet is built by developers, for developers.
 
 ### 🛠️ Development Workflow
 

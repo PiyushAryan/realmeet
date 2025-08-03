@@ -27,6 +27,12 @@ function Workspace({ socketRef, roomId }) {
                 }
             );
 
+            // Override font family to use monospace instead of Sora
+            const cmWrapper = editorRef.current.getWrapperElement();
+            if (cmWrapper) {
+                cmWrapper.style.fontFamily = "'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace";
+            }
+
             editorRef.current.on("change", (instance, changes) => {
                 const { origin } = changes;
                 const code = instance.getValue();
