@@ -5,6 +5,7 @@ import Workspace from '../components/Workspace/Workspace';
 import { connectSocket } from '../socket';
 import { useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
+import Navbar from '../components/common/Navbar';
 
 function Editor() {
   const socketRef = useRef(null);
@@ -66,6 +67,9 @@ function Editor() {
   }, [roomId, location.state, navigate]);
 
   return (
+    <>
+
+    {/* <Navbar /> */}
     <div className="flex h-screen bg-background overflow-hidden">
       <aside className="w-80 border-r border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Sidebar 
@@ -79,6 +83,7 @@ function Editor() {
         {socketConnected && <Workspace socketRef={socketRef} roomId={roomId} />}
       </main>
     </div>
+    </>
   );
 }
 

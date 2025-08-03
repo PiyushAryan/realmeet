@@ -1,29 +1,43 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
+import { ThemeContext } from '../../../Context/ThemeContext';
 
 function FormComp() {
     const navigate = useNavigate();
     const roomIdRef = useRef(null);
     const usernameRef = useRef();
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     const generateRoomId = (e) => {
-        e.preventDefault(); // Prevent default form submission
-        const roomId = Math.random().toString(36).substring(2, 7);
-        toast.success('Room ID generated successfully');
+        e.preventDefault();
+        const roomId = Math.random().toString(36).substring(2, 10).toUpperCase();
+        toast.success('Room ID generated successfully!', {
+            style: {
+                borderRadius: '10px',
+                background: theme === 'dark' ? '#1f2937' : '#fff',
+                color: theme === 'dark' ? '#fff' : '#000',
+            },
+        });
         if (roomIdRef.current) {
             roomIdRef.current.value = roomId;
         }
     };
 
     const joinRoom = (e) => {
-        e.preventDefault(); //Prevent default form submission
+        e.preventDefault();
 
         const roomId = roomIdRef.current?.value;
         const username = usernameRef.current?.value;
 
         if (!roomId || !username) {
-            toast.error('Please enter Room ID and Username');
+            toast.error('Please enter both Room ID and Username', {
+                style: {
+                    borderRadius: '10px',
+                    background: theme === 'dark' ? '#1f2937' : '#fff',
+                    color: theme === 'dark' ? '#fff' : '#000',
+                },
+            });
             return;
         }
 
@@ -35,64 +49,158 @@ function FormComp() {
     };
 
     return (
-        <>
-            <div className='flex flex-col min-h-screen bg-blue-100'>
-                <div className="flex items-center justify-center flex-auto">
-                    <form className="bg-white p-6 rounded-lg shadow-lg w-80 space-y-4">
-                        <h2 className="text-2xl font-bold text-center font-mono">Sign In</h2>
-                        <div>
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10"></div>
+            
+            {/* Theme Toggle - Top Right */}
+            <button
+                onClick={toggleTheme}
+                className="fixed top-6 right-6 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 z-10"
+                aria-label="Toggle theme"
+            >
+                {theme === 'dark' ? (
+                    <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                    </svg>
+                ) : (
+                    <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                )}
+            </button>
+
+            {/* Main Container */}
+            <div className="relative w-full max-w-md">
+                {/* Card */}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden backdrop-blur-md bg-white/95 dark:bg-gray-800/95">
+                    {/* Header */}
+                    <div className="px-8 pt-8 pb-6 text-center border-b border-gray-100 dark:border-gray-700">
+                        <div className="flex items-center justify-center mb-4">
+                            <div className="w-12 h-12 bg-gray-900 dark:bg-gray-100 rounded-xl flex items-center justify-center">
+                                <svg className="w-6 h-6 text-white dark:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m13 0H10m8-8H4a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                            Welcome to RealMeet
+                        </h1>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                            Join or create a coding session
+                        </p>
+                    </div>
+
+                    {/* Form */}
+                    <form onSubmit={joinRoom} className="p-8 space-y-6">
+                        {/* Room ID Input */}
+                        <div className="space-y-2">
                             <label
-                                className="font-mono font-medium block text-sm text-blue-700"
                                 htmlFor="roomId"
+                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
                                 Room ID
                             </label>
-                            <input
-                                type="text"
-                                placeholder="Enter Room ID"
-                                id="roomId"
-                                className="w-full p-2 mt-1 font-mono border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                required
-                                ref={roomIdRef} 
-                            />
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    id="roomId"
+                                    ref={roomIdRef}
+                                    placeholder="Enter room ID"
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                                    required
+                                />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                        <div>
+
+                        {/* Username Input */}
+                        <div className="space-y-2">
                             <label
-                                className="font-mono font-medium block text-sm text-blue-700"
                                 htmlFor="username"
+                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                             >
                                 Username
                             </label>
-                            <input
-                                placeholder="Enter your Username"
-                                type="text"
-                                id="username"
-                                className="font-mono w-full p-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                required
-                                ref={usernameRef} 
-                            />
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    id="username"
+                                    ref={usernameRef}
+                                    placeholder="Enter your username"
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                                    required
+                                />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                        <button
-                            onClick={joinRoom}
-                            type="submit"
-                            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 font-mono">
-                            Sign In
-                        </button>
-                        <button
-                            type="button"
-                            className="w-full text-center cursor-pointer select-none font-mono text-blue-500 hover:text-blue-700"
-                            onClick={generateRoomId}>
-                            Generate Unique Room ID
-                        </button>
+
+                        {/* Action Buttons */}
+                        <div className="space-y-3">
+                            <button
+                                type="submit"
+                                className="w-full bg-gray-900 dark:bg-gray-100 hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-gray-900 font-medium py-3 px-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                            >
+                                Join Session
+                            </button>
+                            
+                            <div className="relative">
+                                <div className="absolute inset-0 flex items-center">
+                                    <div className="w-full border-t border-gray-200 dark:border-gray-600"></div>
+                                </div>
+                                <div className="relative flex justify-center text-xs uppercase">
+                                    <span className="bg-white dark:bg-gray-800 px-3 text-gray-500 dark:text-gray-400">
+                                        or
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={generateRoomId}
+                                className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-xl transition-all duration-200 border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                            >
+                                <div className="flex items-center justify-center space-x-2">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                    <span>Generate Room ID</span>
+                                </div>
+                            </button>
+                        </div>
                     </form>
+
+                    {/* Footer */}
+                    <div className="px-8 py-6 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-700">
+                        <div className="text-center">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                Built with ❤️ by{' '}
+                                <a 
+                                    href="https://pflix.vercel.app/" 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200"
+                                >
+                                    Piyush Aryan
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <footer className="bg-blue-500 text-center text-white p-4">
-                    Built with ❤️ by <a href="https://pflix.vercel.app/" className="font-semibold text-blue-900">Piyush Aryan</a>
-                </footer>
+
+                {/* Decorative Elements */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full opacity-20 animate-pulse"></div>
+                <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-gray-400 dark:bg-gray-500 rounded-full opacity-30 animate-pulse delay-1000"></div>
             </div>
-
-
-        </>
+        </div>
     );
 }
 

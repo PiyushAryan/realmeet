@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router'
+import Navbar from '../components/common/Navbar'
 
 
 export default function NotFound() {
     return (
+<>
+
+<Navbar />
         <div className='flex justify-center items-center'>
+
             <div>
                 <img src="https://cdn.svgator.com/images/2024/04/electrocuted-caveman-animation-404-error-page.gif" alt="404" />
                 <p className='font-mono text-4xl mb-2 text-center'>Look like {`you're`} lost</p>
@@ -14,5 +19,6 @@ export default function NotFound() {
                 </div>
             </div>
         </div>
+    </>
     )
 }
