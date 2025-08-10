@@ -1,9 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useLocation, useNavigate} from 'react-router';
 import Sidebar from '../components/sidebar/Sidebar';
 import Workspace from '../components/Workspace/Workspace';
 import { connectSocket } from '../socket';
-import { useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 
@@ -70,8 +69,8 @@ function Editor() {
     <>
 
     {/* <Navbar /> */}
-    <div className="flex h-screen bg-background overflow-hidden">
-      <aside className="w-80 border-r border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="flex h-screen bg-white dark:bg-gray-900 overflow-hidden">
+      <aside className="w-80 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
         <Sidebar 
           socketRef={socketRef} 
           roomId={roomId} 
@@ -79,7 +78,7 @@ function Editor() {
           users={users}
         />
       </aside>
-      <main className="flex-1 flex flex-col min-w-0">
+      <main className="flex-1 flex flex-col min-w-0 bg-white dark:bg-gray-900">
         {socketConnected && <Workspace socketRef={socketRef} roomId={roomId} />}
       </main>
     </div>

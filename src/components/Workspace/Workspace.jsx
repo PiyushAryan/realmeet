@@ -191,11 +191,11 @@ const runCode = async () => {
 };
 
     return (
-        <div className="flex h-full flex-col bg-background">
-            <div className="flex items-center justify-between border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4">
+        <div className="flex h-full flex-col bg-white dark:bg-gray-900">
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60 px-6 py-4">
                 <div className="flex items-center gap-3">
                     <button
-                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-gray-800 border border-gray-800 shadow-sm h-9 px-4"
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 border border-gray-800 dark:border-gray-200 shadow-sm h-9 px-4"
                         onClick={runCode}
                     >
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,7 +204,7 @@ const runCode = async () => {
                         Run
                     </button>
                     <button
-                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black hover:bg-gray-50 border border-gray-200 shadow-sm h-9 px-4"
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-sm h-9 px-4"
                         onClick={() =>
                             editorRef.current.setValue("// realmeet - realtime coding platform")
                         }
@@ -223,12 +223,12 @@ const runCode = async () => {
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span className="text-sm text-muted-foreground">Live Session</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Live Session</span>
                     </div>
-                    <div className="h-4 w-px bg-border"></div>
+                    <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground">Room:</span>
-                        <code className="relative rounded-md bg-muted px-2 py-1 font-mono text-sm font-medium text-foreground">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Room:</span>
+                        <code className="relative rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 font-mono text-sm font-medium text-gray-900 dark:text-white">
                             {roomId}
                         </code>
                         <button
@@ -253,10 +253,9 @@ const runCode = async () => {
                                 AI
                             </button>
                             {/* Tooltip */}
-                            <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                                <div className="bg-black dark:bg-white text-white dark:text-black text-xs font-medium px-2 py-1 rounded whitespace-nowrap">
+                            <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+                                <div className="bg-black text-white dark:bg-white dark:text-black text-xs font-medium px-3 py-2 rounded-lg whitespace-nowrap shadow-xl border border-dashed border-orange-400 dark:border-orange-500">
                                     Coming Soon
-                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black dark:border-t-white"></div>
                                 </div>
                             </div>
                         </div>
@@ -265,15 +264,15 @@ const runCode = async () => {
             </div>
 
             {output && (
-                <div className="border-b bg-muted/20 p-6">
-                    <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
-                        <div className="flex items-center gap-2 bg-muted/50 px-4 py-3 border-b">
+                <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/20 p-6">
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm overflow-hidden">
+                        <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800/50 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                             <div className="flex gap-1.5">
                                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                            <span className="text-sm font-medium text-muted-foreground ml-2">Output</span>
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400 ml-2">Output</span>
                         </div>
                         <div className="p-4">
                             <div className="font-mono text-sm">
@@ -287,7 +286,7 @@ const runCode = async () => {
             <div className="flex-1 relative">
                 <textarea 
                     id="realtimeEditor" 
-                    className="h-full w-full resize-none border-0 bg-background p-6 text-sm font-mono outline-none placeholder:text-muted-foreground"
+                    className="h-full w-full resize-none border-0 bg-white dark:bg-gray-900 p-6 text-sm font-mono outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400 text-gray-900 dark:text-white"
                     placeholder="// Start coding here..."
                 />
             </div>
