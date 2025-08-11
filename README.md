@@ -1,4 +1,4 @@
-# ![realmeet Logo](./public/favicon.svg) realmeet
+# ![realmeet Logo](./public/favicon-dark.svg) realmeet
 
 <div align="center">
 
