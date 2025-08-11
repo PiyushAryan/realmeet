@@ -175,6 +175,16 @@ function FormComp() {
                                     Piyush Aryan
                                 </a>
                             </p>
+                            <a href="https://peerlist.io/piyusharyan/project/realmeet" target="_blank" rel="noreferrer" className="inline-block mt-4">
+                                <img
+                                    src={theme === 'dark' 
+                                        ? "https://peerlist.io/api/v1/projects/embed/PRJHOK8DJ6BO686LJI77JK8NK8GODO?showUpvote=false&theme=dark" 
+                                        : "https://peerlist.io/api/v1/projects/embed/PRJHOK8DJ6BO686LJI77JK8NK8GODO?showUpvote=true&theme=light"}
+                                    alt="realmeet"
+                                    style={{ width: 'auto', height: '48px' }}
+                                    className="mx-auto"
+                                />
+                            </a>
                         </div>
                     </div>
                 </div>
