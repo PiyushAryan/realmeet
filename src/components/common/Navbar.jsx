@@ -18,7 +18,7 @@ function Navbar() {
                     <div className="flex items-center space-x-3">
                         <div className="p-1 bg-black dark:bg-white rounded-lg">
                             <img 
-                                src="/favicon.svg" 
+                                src={theme === 'dark' ? '/favicon-dark.svg' : '/favicon.svg'} 
                                 alt="realmeet logo" 
                                 className="h-8 w-8 rounded-lg invert dark:invert-0"
                             />
