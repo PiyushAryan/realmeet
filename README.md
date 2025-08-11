@@ -2,147 +2,85 @@
 
 <div align="center">
 
-### 🚀 **Enterprise-Grade Real-Time Coding Platform**
+## 🚀 Enterprise-Grade Real-Time Coding Platform
+**Revolutionising technical interviews and collaborative coding experiences**
 
-**Revolutionizing technical interviews and collaborative coding experiences**
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-16.x+-brightgreen.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18.x-blue.svg)](https://reactjs.org/)
 [![Socket.IO](https://img.shields.io/badge/Socket.IO-Real--Time-orange.svg)](https://socket.io/)
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success.svg)]()
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)]()
 
-[🔴 **Live Demo**](https://realmeet.vercel.app) · [📖 **Documentation**](#-quick-start) · [🚀 **Get Started**](#-installation) · [🐛 **Report Issues**](https://github.com/PiyushAryan/realmeet/issues)
+[🔴 Live Demo](https://realmeet.studio) · [📖 Documentation](#-quick-start) · [🐛 Report Issues](https://github.com/PiyushAryan/realmeet/issues)
 
 </div>
 
 ---
 
-## 💼 Product Overview
+## 📌 Overview
 
-**realmeet** is a professional-grade, real-time collaborative coding platform designed for modern technical recruitment and development workflows. Built with enterprise reliability and user experience at its core, realmeet transforms traditional coding interviews into seamless, collaborative experiences.
-
-### 🎯 **Target Use Cases**
-
-| Use Case | Description | Key Benefits |
-|----------|-------------|--------------|
-| **Technical Interviews** | Streamlined candidate assessment | Real-time collaboration, instant feedback |
-| **Pair Programming** | Remote development sessions | Live code sharing, synchronized editing |
-| **Code Reviews** | Interactive review processes | Real-time discussion, visual feedback |
-| **Training & Education** | Coding workshops and mentoring | Interactive learning, guided practice |
+**realmeet** is an **open-source, real-time collaborative coding platform** designed for technical interviews, pair programming, code reviews, and training.  
+It offers **low-latency, secure, and scalable** collaboration with built-in multi-language code execution.
 
 ---
 
-## ✨ Key Features & Capabilities
+## 🎯 Features
 
-<div align="center">
+- **Real-Time Collaboration**
+  - Live code sync with <50ms latency
+  - Cursor tracking for all participants (coming soon)
+  - Smart conflict resolution
 
-### 🔥 **Core Platform Features**
+- **Secure & Private**
+  - Ephemeral sessions (no data saved)
+  - End-to-end encrypted WebSocket communication
+  - Role-based access control
 
-</div>
+- **Multi-Language Execution**
+  - C++, Python, Java, JavaScript & more
+  - Powered by [Judge0](https://judge0.com/) API
+  - Real-time compilation and runtime feedback
 
-<table>
-<tr>
-<td width="50%">
-
-#### 🔴 **Real-Time Collaboration Engine**
-- **Live Code Synchronization** - Instant updates across all participants
-- **Cursor Tracking** - Visual participant awareness
-- **Conflict Resolution** - Smart merge handling
-- **Sub-50ms Latency** - Enterprise-grade performance
-
-#### 🛡️ **Security & Privacy**
-- **Ephemeral Sessions** - Zero data persistence post-session
-- **Secure WebSocket** - End-to-end encrypted communication
-- **Access Control** - Room-based permission management
-- **GDPR Compliant** - Privacy-first architecture
-
-</td>
-<td width="50%">
-
-#### ⚡ **Advanced Code Execution**
-- **Multi-Language Support** - C++, Python, Java, JavaScript, and more
-- **Judge0 Integration** - Industry-standard code execution
-- **Real-Time Output** - Instant compilation and runtime feedback
-- **Error Handling** - Comprehensive debugging information
-
-#### 🎨 **Professional Interface**
-- **Modern UI/UX** - Clean, distraction-free design
-- **Theme Support** - Dark/Light mode adaptability
-- **Responsive Design** - Optimized for all screen sizes
-- **Accessibility** - WCAG 2.1 compliant interface
-
-</td>
-</tr>
-</table>
-
-### 🚀 **Advanced Capabilities**
-
-- **🎯 Smart Output Display** - Color-coded results with performance metrics
-- **📊 Session Analytics** - Detailed usage insights and statistics
-- **🤖 AI-Ready Architecture** - Future-ready for intelligent coding assistance
-- **⚡ Performance Optimized** - Sub-second load times, optimal resource usage
-- **🔧 API Integration** - Extensible platform with webhook support
+- **Modern UI**
+  - Clean, distraction-free interface
+  - Dark/Light theme
+  - Mobile-friendly and responsive
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Tech Stack
 
-<div align="center">
-
-### **Enterprise-Grade Technology Foundation**
-
-| Layer | Technologies | Purpose |
-|-------|-------------|---------|
-| **Frontend** | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-38B2AC?style=flat&logo=tailwind-css&logoColor=white) ![CodeMirror](https://img.shields.io/badge/CodeMirror-D30707?style=flat&logo=codemirror&logoColor=white) | Modern, responsive UI development |
-| **Backend** | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white) | Scalable server architecture |
-| **Real-Time** | ![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socket.io&logoColor=white) | Low-latency communication |
-| **Code Execution** | ![Judge0](https://img.shields.io/badge/Judge0-FF6B35?style=flat&logo=code&logoColor=white) | Secure code compilation & execution |
-| **Infrastructure** | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) ![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat&logo=microsoft-azure&logoColor=white) | Enterprise cloud deployment |
-
-</div>
-
-### 🏗️ **Architecture Principles**
-- **🔄 Microservices Ready** - Modular, scalable component architecture
-- **📈 Horizontal Scaling** - Built for high-concurrency environments  
-- **🛡️ Security First** - Zero-trust security model implementation
-- **⚡ Performance Optimized** - Efficient resource utilization and caching
+| Layer         | Technologies |
+|--------------|--------------|
+| Frontend     | React, Tailwind CSS, CodeMirror |
+| Backend      | Node.js, Express |
+| Real-Time    | Socket.IO |
+| Code Runner  | Judge0 API |
+| Deployment   | Vercel, Azure |
 
 ---
 
 ## 🚀 Quick Start
 
-### 📋 System Requirements
-
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| **Node.js** | 16.x | 18.x+ |
-| **Memory** | 2GB RAM | 4GB+ RAM |
-| **Storage** | 1GB | 2GB+ |
-
-### ⚙️ Prerequisites
-
+### 1️⃣ Prerequisites
 - **Node.js** 16.x or higher ([Download](https://nodejs.org/))
-- **Package Manager** - npm (included) or yarn
-- **Judge0 API Access** - [Get API Key](https://judge0.com/)
+- **npm** or **yarn**
+- **Judge0 API Key** ([Get here](https://judge0.com/))
 
-### 📦 Installation
+### 2️⃣ Installation
 
 ```bash
-# 1. Clone the repository
+# Clone repository
 git clone https://github.com/PiyushAryan/realmeet.git
 cd realmeet
 
-# 2. Install dependencies
-npm install
+# Install frontend & backend dependencies
+npm install 
 
-# 3. Install client dependencies
-cd client && npm install && cd ..
-```
 
-### 🔧 Configuration
+### 3️⃣ Configuration
 
-Create your environment configuration:
+Create a `.env` file in the root directory:
 
 ```env
 # Judge0 API Configuration
@@ -151,142 +89,85 @@ JUDGE0_API_KEY=your_rapidapi_key_here
 
 # Server Configuration
 PORT=5000
-NODE_ENV=production
 CORS_ORIGIN=http://localhost:3000
 
-# Security (Optional)
-JWT_SECRET=your_jwt_secret_key
-SESSION_SECRET=your_session_secret
-```
 
-### 🚀 Deployment
+### 4️⃣ Run in Development
 
-#### Development Environment
 ```bash
-# Start development servers
+# Start both client & server
 npm run dev
 
-# Individual services
-npm run dev:client    # Frontend development server
-npm run dev:server    # Backend development server
+# OR run separately
+client: npm run dev
+server: npm start
 ```
 
-#### Production Environment
-```bash
-# Build for production
-npm run build
+Visit: **http://localhost:3000**
 
-# Start production server
+---
+
+## 📦 Production Build
+
+```bash
+npm run build
 npm start
 ```
 
-🎉 **Access your application at** `http://localhost:3000`
-
 ---
 
-## 📊 Performance Metrics
+## 📊 Performance
 
-<div align="center">
-
-| Metric | Performance | Status |
-|--------|-------------|--------|
-| **Page Load Time** | < 2 seconds | ✅ Optimized |
-| **Real-Time Latency** | < 50ms | ✅ Enterprise Grade |
-| **Concurrent Users** | 1000+ supported | ✅ Scalable |
-| **Uptime** | 99.9% availability | ✅ Reliable |
-
-</div>
-
----
-
-## 🏢 Enterprise Features
-
-### 🔐 **Security & Compliance**
-- **Data Privacy** - Zero data persistence, ephemeral sessions
-- **Encryption** - End-to-end encrypted communication
-- **Access Control** - Role-based permissions and room management
-- **Audit Logging** - Comprehensive session tracking and analytics
-
-### ⚡ **Performance & Reliability**
-- **Load Balancing** - Automatic traffic distribution
-- **Auto-Scaling** - Dynamic resource allocation
-- **CDN Integration** - Global content delivery optimization
-- **Health Monitoring** - Real-time system health checks
-
-### 🔧 **Integration & APIs**
-- **REST APIs** - Comprehensive programmatic access
-- **Webhook Support** - Real-time event notifications
-- **SSO Integration** - Enterprise authentication systems
-- **White-label Options** - Custom branding and deployment
+| Metric             | Value |
+|--------------------|-------|
+| Page Load Time     | < 2s  |
+| Real-Time Latency  | < 50ms|
+| Concurrent Users   | 1000+ |
+| Uptime             | 99.9% |
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from the developer community! realmeet is built by developers, for developers.
+We welcome contributions!  
 
-### 🛠️ Development Workflow
+### Steps:
+1. **Fork** this repository
+2. Create a feature branch:  
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Commit your changes with a clear message:  
+   ```bash
+   git commit -m "feat: add your feature"
+   ```
+4. Push to your fork:  
+   ```bash
+   git push origin feature/your-feature
+   ```
+5. Open a Pull Request
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/enhancement-name`)
-3. **Implement** your changes with comprehensive tests
-4. **Commit** with conventional commits (`git commit -m 'feat: add new feature'`)
-5. **Push** to your branch (`git push origin feature/enhancement-name`)
-6. **Submit** a Pull Request with detailed description
-
-### 📝 Contribution Guidelines
-
-- **Code Quality** - Follow ESLint and Prettier configurations
-- **Testing** - Maintain 80%+ test coverage for new features
-- **Documentation** - Update relevant documentation and README
-- **Performance** - Ensure no performance regressions
-
-### 🐛 Bug Reports
-
-Found an issue? Help us improve:
-
-1. **Search** existing issues to avoid duplicates
-2. **Create** a detailed bug report with reproduction steps
-3. **Include** system information and error logs
-4. **Add** relevant labels and priority level
+📜 **Guidelines**
+- Follow ESLint + Prettier configs
+- Maintain >80% test coverage
+- Keep commits atomic and meaningful
 
 ---
 
-## 📄 License & Legal
+## 🐛 Reporting Issues
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+- Search existing issues before creating a new one
+- Provide **steps to reproduce**, environment details, and logs
+- Use appropriate labels (`bug`, `feature`, `enhancement`)
 
-### 🔒 Privacy & Security
-- **Data Protection** - No personal data stored or tracked
-- **Session Security** - Encrypted real-time communication
-- **Compliance Ready** - GDPR and SOC 2 Type II compatible
-
----
-
-## 📞 Support & Contact
-
-<div align="center">
-
-### 🌟 **Professional Support Available**
-
-For enterprise deployments, custom integrations, or technical support:
-
-📧 **Enterprise Sales:** [enterprise@realmeet.dev](mailto:enterprise@realmeet.dev)  
-🛠️ **Technical Support:** [support@realmeet.dev](mailto:support@realmeet.dev)  
-💬 **Community Discord:** [Join our community](https://discord.gg/realmeet)  
-📖 **Documentation:** [docs.realmeet.dev](https://docs.realmeet.dev)  
-🐛 **Issue Tracking:** [GitHub Issues](https://github.com/PiyushAryan/realmeet/issues)
+[Open an issue →](https://github.com/PiyushAryan/realmeet/issues)
 
 ---
 
-### 💝 **Built with ❤️ for the Developer Community**
+## 📜 License
 
-**"Transforming technical interviews, one line of code at a time."**
+This project is licensed under the [MIT License](LICENSE).
 
-⭐ **Star this repository if it helped you!** ⭐
+---
 
-[![GitHub Stars](https://img.shields.io/github/stars/PiyushAryan/realmeet?style=social)](https://github.com/PiyushAryan/realmeet/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/PiyushAryan/realmeet?style=social)](https://github.com/PiyushAryan/realmeet/network)
-[![GitHub Issues](https://img.shields.io/github/issues/PiyushAryan/realmeet?style=social)](https://github.com/PiyushAryan/realmeet/issues)
-
-</div>
+> **Built with ❤️ for developers** — *"Transforming technical interviews, one line of code at a time."*
