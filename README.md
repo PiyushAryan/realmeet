@@ -3,7 +3,7 @@
 <div align="center">
   <img src="./public/favicon-dark.svg" alt="realmeet" width="120" height="120" />
   
-  <h3>Enterprise-Grade Real-Time Collaborative Coding Platform</h3>
+  <h3>Real-Time Collaborative Coding Platform</h3>
   <p><em>Revolutionizing technical interviews and collaborative development</em></p>
   
   <p>
