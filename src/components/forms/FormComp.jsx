@@ -56,7 +56,7 @@ function FormComp() {
             {/* Main Container */}
             <div className="relative w-full max-w-md">
                 {/* Card */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 backdrop-blur-md bg-white/95 dark:bg-gray-800/95">
+                <div className="bg-white dark:bg-gray-800  shadow-2xl border border-gray-200 dark:border-gray-700 backdrop-blur-md bg-white/95 dark:bg-gray-800/95">
                     {/* Header */}
                     <div className="px-8 pt-8 pb-6 text-center border-b border-gray-100 dark:border-gray-700">
                         <div className="flex items-center justify-center mb-4">
@@ -158,6 +158,7 @@ function FormComp() {
                                     <span>Generate Room ID</span>
                                 </div>
                             </button>
+             
                         </div>
                     </form>
 
@@ -175,16 +176,6 @@ function FormComp() {
                                     Piyush Aryan
                                 </a>
                             </p>
-                            <a href="https://peerlist.io/piyusharyan/project/realmeet" target="_blank" rel="noreferrer" className="inline-block mt-4">
-                                <img
-                                    src={theme === 'dark' 
-                                        ? "https://peerlist.io/api/v1/projects/embed/PRJHOK8DJ6BO686LJI77JK8NK8GODO?showUpvote=true&theme=dark" 
-                                        : "https://peerlist.io/api/v1/projects/embed/PRJHOK8DJ6BO686LJI77JK8NK8GODO?showUpvote=true&theme=light"}
-                                    alt="realmeet"
-                                    style={{ width: 'auto', height: '72px' }}
-                                    className="mx-auto"
-                                />
-                            </a>
                         </div>
                     </div>
                 </div>
