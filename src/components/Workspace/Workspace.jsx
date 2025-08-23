@@ -7,12 +7,15 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/clike/clike";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
+import AIHint from "./AIHint";
 
 
 // eslint-disable-next-line react/prop-types
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
+    const aiHint = AIHint({ editorRef, socketRef, roomId });
     const [output, setOutput] = useState("");
+
 
     useEffect(() => {
         async function connect() {
@@ -70,6 +73,24 @@ function Workspace({ socketRef, roomId }) {
             }
         };
     }, [socketRef, roomId]);
+
+    // AI Hint Keymap
+    useEffect(() => {
+        const cm = editorRef.current;
+        if (!cm) return;
+
+        // Keymap
+        cm.addKeyMap({
+            "Ctrl-Space": aiHint.fetchHint,
+            Tab: () => {
+                if (aiHint.ghostHint) aiHint.acceptGhostHint();
+                else cm.replaceSelection("\t");
+            },
+            Esc: aiHint.clearGhostHint,
+        });
+    }, [aiHint]);
+
+
 
 const runCode = async () => {
   const rawCode = editorRef.current.getValue();
@@ -242,7 +263,7 @@ const runCode = async () => {
                             </svg>
                         </button>
                         <div className="relative group">
-                            <button
+                            <button onClick={aiHint.fetchHint}
                                 className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 border border-orange-400 hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105 text-sm font-medium"
                                 aria-label="AI Assistant"
                                 title="AI Assistant - Coming Soon"
@@ -253,11 +274,7 @@ const runCode = async () => {
                                 AI
                             </button>
                             {/* Tooltip */}
-                            <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
-                                <div className="bg-black text-white dark:bg-white dark:text-black text-xs font-medium px-3 py-2 rounded-lg whitespace-nowrap shadow-xl border border-dashed border-orange-400 dark:border-orange-500">
-                                    Coming Soon
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
