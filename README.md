@@ -43,13 +43,11 @@
 
 ### Real-Time Collaboration
 - **Live Code Synchronization** - Changes appear instantly across all participants
-- **Conflict Resolution** - Smart merging prevents code conflicts
 - **Multi-cursor Support** - See exactly where teammates are working *(coming soon)*
 
 ### Security & Privacy
 - **Zero Data Persistence** - Sessions are ephemeral and automatically destroyed
 - **Encrypted Communication** - End-to-end WebSocket encryption
-- **Access Control** - Role-based permissions for session management
 
 ### Code Execution Engine
 - **Multi-Language Support** - C++, Python, Java, JavaScript, Go, Rust, and more
@@ -59,7 +57,6 @@
 ### Modern Experience
 - **Clean Interface** - Distraction-free coding environment
 - **Theme Customization** - Dark/Light modes with syntax highlighting
-- **Mobile-Responsive** - Code anywhere, on any device
 
 ---
 
