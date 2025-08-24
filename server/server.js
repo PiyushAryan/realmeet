@@ -2,14 +2,62 @@ import { config as configDotenv } from 'dotenv';
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
-import process from 'node:process';
+import axios from 'axios';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+
+configDotenv({ path: './server/.env' });
 
 
-
-configDotenv();
 const app = express();
+
+app.use(helmet());
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
+app.use(express.json());
+
+app.use("/api/ai-hint", rateLimit({ windowMs: 60 * 1000, max: 10 }));
 const server = http.createServer(app);
 const io = new Server(server);
+
+
+app.post("/api/ai-hint", async (req, res) => {
+  try {
+    const { prompt, suffix } = req.body;
+    
+    const response = await axios.post(
+      "https://codestral.mistral.ai/v1/fim/completions",
+      {
+        model: "codestral-latest",
+        prompt,
+        suffix,
+        max_tokens: 128,
+        temperature: 0.2,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.MISTRAL_API_KEY}`,
+          
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const hintText = response.data.choices?.[0]?.text || "";
+    res.json({ hint: hintText }); //back to pavillion
+  } catch (err) {
+    console.error("AI hint error:", err.response?.data || err.message);
+    res.status(500).json({ error: "Failed to fetch AI hint" });
+    
+  }
+});
 
 const userSocketMap = {};
 
