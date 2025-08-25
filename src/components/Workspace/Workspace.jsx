@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Codemirror from "codemirror";
 import axios from "axios";
 import "codemirror/lib/codemirror.css";
@@ -7,13 +8,27 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/clike/clike";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
-import AIHint from "./AIHint";
+import useAIHint from "./AIHint";
 
 
 // eslint-disable-next-line react/prop-types
 function Workspace({ socketRef, roomId }) {
     const editorRef = useRef(null);
-    const aiHint = AIHint({ editorRef, socketRef, roomId });
+    const { 
+      ghostHint, 
+      fetchHint, 
+      acceptGhostHint, 
+      showDropdown, 
+      aiHints, 
+      isLoading, 
+      fetchAIHints, 
+      closeDropdown, 
+      applyHint 
+    } = useAIHint(
+      editorRef,
+      socketRef,
+      roomId
+    );
     const [output, setOutput] = useState("");
 
 
@@ -81,14 +96,42 @@ function Workspace({ socketRef, roomId }) {
 
         // Keymap
         cm.addKeyMap({
-            "Ctrl-Space": aiHint.fetchHint,
+            "Ctrl-Space": fetchHint,
             Tab: () => {
-                if (aiHint.ghostHint) aiHint.acceptGhostHint();
+                if (ghostHint) acceptGhostHint();
                 else cm.replaceSelection("\t");
             },
-            Esc: aiHint.clearGhostHint,
+            Esc: () => {
+                // Clear ghost hint if available
+                if (ghostHint) {
+                    // Assuming there's a clearGhostHint function or we can set ghostHint to null
+                    // This would need to be implemented in the useAIHint hook
+                }
+            },
         });
-    }, [aiHint]);
+    }, [ghostHint, fetchHint, acceptGhostHint]);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (showDropdown) {
+                const dropdown = event.target.closest('.ai-dropdown');
+                const aiButton = event.target.closest('.ai-button');
+                
+                if (!dropdown && !aiButton) {
+                    closeDropdown();
+                }
+            }
+        };
+
+        if (showDropdown) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showDropdown, closeDropdown]);
 
 
 
@@ -263,18 +306,77 @@ const runCode = async () => {
                             </svg>
                         </button>
                         <div className="relative group">
-                                                         <button onClick={aiHint.fetchHint}
-                                 className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 border border-orange-400 hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105 text-sm font-medium"
-                                 aria-label="AI Assistant"
-                                 title="AI Assistant - Press Ctrl+Space for hints"
-                             >
+                            <button 
+                                onClick={fetchAIHints}
+                                className="ai-button inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 border border-orange-400 hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105 text-sm font-medium"
+                                aria-label="AI Assistant"
+                                title="AI Assistant - Get coding suggestions"
+                            >
                                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                                     <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
                                 </svg>
                                 AI
                             </button>
-                            {/* Tooltip */}
                             
+                            {/* AI Hints Dropdown */}
+                            {showDropdown && createPortal(
+                                <div className="ai-dropdown fixed top-20 right-6 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-[9999]">
+                                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="text-sm font-medium text-gray-900 dark:text-white">AI Suggestions</h3>
+                                            <button
+                                                onClick={closeDropdown}
+                                                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                            >
+                                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="max-h-64 overflow-y-auto">
+                                        {isLoading ? (
+                                            <div className="p-4 text-center">
+                                                <div className="inline-flex items-center gap-2">
+                                                    <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                                                    <span className="text-sm text-gray-600 dark:text-gray-400">Generating suggestions...</span>
+                                                </div>
+                                            </div>
+                                        ) : aiHints.length > 0 ? (
+                                            <div className="p-2">
+                                                {aiHints.map((hint, index) => (
+                                                    <button
+                                                        key={index}
+                                                        onClick={() => applyHint(hint)}
+                                                        className="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                                                    >
+                                                        <div className="flex items-start gap-3">
+                                                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                                                                <svg className="w-3 h-3 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                                                </svg>
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="text-sm text-gray-900 dark:text-white font-mono leading-relaxed group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                                                                    {hint}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="p-4 text-center">
+                                                <div className="text-gray-500 dark:text-gray-400 text-sm">
+                                                    No suggestions available
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>,
+                                document.body
+                            )}
                         </div>
                     </div>
                 </div>
