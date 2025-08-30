@@ -30,7 +30,7 @@ function Editor() {
         
         // Listen for user events at the top level
         socketRef.current.on('joined', ({ users, username, socketId }) => {
-          console.log("Users in room:", users);
+          console.log("Users in room:", users); // remove in prod
           setUsers(users);
           if (location.state?.username !== username) {
             toast.success(`${username} joined the room`);
@@ -38,7 +38,7 @@ function Editor() {
         });
         
         socketRef.current.on('left', ({ socketId, username }) => {
-          console.log("User left:", username);
+          console.log("User left:", username); // remove in prod
           toast.success(`${username} left the room`);
           setUsers(prev => prev.filter(user => user.socketId !== socketId));
         });
@@ -51,7 +51,7 @@ function Editor() {
     };
     
     function handleErrors(e) {
-      console.log('socket error', e);
+      console.log('socket error', e); // remove in prod 
       toast.error('An error occurred while connecting to the server');
       navigate('/');
     }

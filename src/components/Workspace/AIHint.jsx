@@ -67,8 +67,8 @@ export default function useAIHint(editorRef, socketRef, roomId) {
         suffix: afterCursor,
       });
 
-      const { hint } = res.data; // ✅ safer destructuring
-      console.log("AI Hint:", hint);
+      const { hint } = res.data; 
+      // console.log("AI Hint:", hint);
 
       if (hint && hint.trim()) {
         showGhostHint(hint);
@@ -99,7 +99,7 @@ export default function useAIHint(editorRef, socketRef, roomId) {
       });
 
       const { hints } = res.data;
-      console.log("AI Hints:", hints);
+      // console.log("AI Hints:", hints);
 
       if (hints && Array.isArray(hints)) {
         setAiHints(hints);
