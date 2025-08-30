@@ -62,7 +62,7 @@ export default function useAIHint(editorRef, socketRef, roomId) {
     const afterCursor = code.substring(cm.indexFromPos(cursor));
 
     try {
-      const res = await axios.post("http://localhost:3000/api/ai-hint", {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/ai-hint`, {
         prompt: beforeCursor,
         suffix: afterCursor,
       });
@@ -91,7 +91,7 @@ export default function useAIHint(editorRef, socketRef, roomId) {
     const afterCursor = code.substring(cm.indexFromPos(cursor));
 
     try {
-      const res = await axios.post("http://localhost:3000/api/ai-hints", {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/ai-hints`, {
         code: code,
         cursor: cm.indexFromPos(cursor),
         beforeCursor: beforeCursor,
