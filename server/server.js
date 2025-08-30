@@ -12,10 +12,17 @@ configDotenv({ path: './server/.env' });
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // CSP can block socket.io
+  crossOriginEmbedderPolicy: false,
+}));
 
 app.use(cors({
-  origin: 'https://realmeet.studio',
+  origin: [
+    'https://realmeet.studio',
+    'http://localhost:5173',
+    'https://realmeet-b3cmhhawbxd4djhe.centralindia-01.azurewebsites.net'
+  ],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
