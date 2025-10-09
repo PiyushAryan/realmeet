@@ -10,11 +10,22 @@ configDotenv({ path: '.env' });
 
 const app = express();
 
-
+// Security middleware
 app.use(helmet());
 
-
-app.use(cors());
+// CORS configuration - Allow both development and production origins
+app.use(cors({
+  origin: [
+    'http://localhost:5173',           // Local development
+    'http://localhost:3000',           // Alternative local port
+    'https://realmeet.studio',         // Production domain
+    'https://www.realmeet.studio',     // Production with www
+    'https://realmeet.vercel.app',     // Vercel preview deployments
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 app.use(express.json());
 
